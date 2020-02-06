@@ -12,8 +12,11 @@ $ sudo apt-get install git-lfs
 
 ```
 $ brew update
-
 $ brew install git-lfs
+
+// Update global git config
+
+$ git lfs install
 ```
 
 **Ubuntu**
