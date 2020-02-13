@@ -443,3 +443,11 @@ for person in persons {
 }
 ```
 
+output: 
+```
+Hobbies of person: Rajan are ->
+     Music
+     Football
+Hobbies of person: Rajesh are ->
+     Music
+```
