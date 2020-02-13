@@ -398,7 +398,7 @@ struct Person: Decodable {
         }
 
     let name: String
-    hobby: [Hobby]
+    let hobby: [Hobby]
 }
 ```
 In order to handle this scnerio will will require custom coding kyes and a initializer function where we will  decode hobby in do catch block. For second object in json string we will handle that in catch block and prepare the hobby object.
