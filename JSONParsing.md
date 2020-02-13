@@ -362,3 +362,84 @@ Output:
 
 
 
+## Parsing inconsistent JSON String
+
+If we look at the following json string we notice that hobby key consist array of object in first object and just an object in second object.  Thus JSON string is inconsistent. 
+```swift
+let personJson = """
+[
+  {
+    "name": "Rajan",
+    "hobby": [
+      {
+        "name": "Music"
+      },
+      {
+        "name": "Football"
+      }
+    ]
+  },
+  {
+    "name": "Rajesh",
+    "hobby": {
+      "name": "Music"
+    }
+  }
+]
+"""
+```
+
+To decode this person we will need to create two struct one for **Person** and next for **Hobby**. If we create a **Person** struct with  following code then decoder will simply crash. It's because  this srtuct is not valid for second object in json string.
+
+```swift
+struct Person: Decodable {
+    struct Hobby: Decodable {
+        let name: String
+        }
+
+    let name: String
+    hobby: [Hobby]
+}
+```
+In order to handle this scnerio will will require custom coding kyes and a initializer function where we will  decode hobby in do catch block. For second object in json string we will handle that in catch block and prepare the hobby object.
+
+```swift
+struct Person: Decodable {
+    
+    enum CodingKeys: String, CodingKey {
+        case name, hobby
+    }
+    struct Hobby: Decodable {
+        let name: String
+    }
+    
+    let name: String
+    let hobby: [Hobby]
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        name = try container.decode(String.self, forKey: .name)
+        do{
+            hobby = try container.decode([Hobby].self, forKey: .hobby)
+        }catch{
+            let newValue = try container.decode(Hobby.self, forKey: .hobby)
+            hobby = [newValue]
+        }
+    }
+}
+
+let decoder = JSONDecoder()
+let personData = personJson.data(using: .utf8)!
+
+let persons  = try! decoder.decode([Person].self, from: personData)
+
+
+for person in persons {
+    print("Hobbies of person: \(person.name) are ->")
+    for hobby in person.hobby {
+        print("\t \(hobby.name)")
+    }
+}
+```
+
