@@ -16,7 +16,7 @@ let personJson = """
 }
 """
 
-print(personJson)
+
 ```
 
 ## Decoding JSON String
