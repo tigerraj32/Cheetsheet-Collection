@@ -458,6 +458,13 @@ Hobbies of person: Rajesh are ->
 When working with swiftui if you have class that conform to ObservableObject and have one of the property  marked as @Published  to represent the json object, then such class cannot conform to Decodable.  For this also we need to create our own coding keys.
 
 ```swift
+let personJson = """
+{
+    "name": "Rajan",
+    "rating": 5
+}
+"""
+
 class Person: Decodable, ObservableObject {
     
     enum CodingKeys: String, CodingKey {
