@@ -452,3 +452,26 @@ Hobbies of person: Rajesh are ->
      Music
      
 ```
+
+## Using class that have @Published property to decode JSON String
+
+When working with swiftui if you have class that conform to ObservableObject and have one of the property  marked as @Published  to represent the json object, then such class cannot conform to Decodable.  For this also we need to create our own coding keys.
+
+```swift
+class Person: Decodable, ObservableObject {
+    
+    enum CodingKeys: String, CodingKey {
+        case name, rating
+    }
+    
+    let name: String
+    @Published var rating: Int
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        name = try container.decode(String.self, forKey: .name)
+        rating = try container.decode(Int.self, forKey: .rating)
+    }
+}
+```
+
