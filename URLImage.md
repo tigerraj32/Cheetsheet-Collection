@@ -1,3 +1,7 @@
+[More on URLImage](https://github.com/dmytro-anokhin/url-image/blob/master/Sources/URLImage/URLImage.swift)
+
+[Video](https://www.youtube.com/watch?v=volfJt7mupo)
+
 ```swift
 
 class ImageLoader:ObservableObject {
