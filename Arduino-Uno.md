@@ -59,6 +59,7 @@ As a reminder, digital logic circuits have three logic states: **high, low and f
 |![pull up resistor](./pull-up-resistor.png)| ![pull down resistor](./pull-down-resistor.png)|
 
 
+**Driving load with microcontroller:** [driving load with controller](./driving-load.pdf)
 
 
 
