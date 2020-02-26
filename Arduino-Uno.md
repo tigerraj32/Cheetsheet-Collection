@@ -49,7 +49,7 @@ Arduino Uno is based on the ATmega328 by Atmel. The high-performance Microchip p
 
 
 
-### Note
+### Note: Driving Load
 As a reminder, digital logic circuits have three logic states: **high, low and floating (or high impedance)**.
 - **Pull-up Resistor** <br> Pull-up resistors are resistors which are used to ensure that a wire is pulled to a high logical level in the absence of an input signal.
 - **Pull-down Resistor** <br> Pull-down resistors are resistors which are used to ensure that a wire is pulled to a low logical level in the absence of an input signal.
@@ -59,7 +59,7 @@ As a reminder, digital logic circuits have three logic states: **high, low and f
 |![pull up resistor](./pull-up-resistor.png)| ![pull down resistor](./pull-down-resistor.png)|
 
 
-**Driving load with microcontroller:** [driving load with controller](./driving-load.pdf)
+**More on Driving load with microcontroller:** [driving load with controller](./driving-load.pdf)
 
 
 
