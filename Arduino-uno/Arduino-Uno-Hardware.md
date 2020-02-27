@@ -20,7 +20,7 @@ Arduino Uno is based on the ATmega328 by Atmel. The high-performance Microchip p
 | ------------- |:-------------:| 
 | Microcontroller     | ATMega328P * bit AVR microcontroller |
 | Operating Voltage     | 5V      |
-| Recommended Input Voltage | 7 - 122 V    |
+| Recommended Input Voltage | 7 - 12 V    |
 | Input Voltage Range| 6 - 20 V |
 | DC Current on i/o pins| 40 mA (safe 20 mA)|
 | Flash Memory| 32 KB (0.5 KB is used for Bootloader|
