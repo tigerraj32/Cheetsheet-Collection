@@ -46,8 +46,9 @@ Arduino Uno is based on the ATmega328 by Atmel. The high-performance Microchip p
 | Interrupt | INT0-2, INT2-3 | There are two of interrupt in arduino uno.<br> - External Interrupt (2,3) <br> - Pin Change Interrupt which can be activated on any of the pins.|
 | PWM | Pins(3,5,6,9,11) | Total of 5 pins provide 8 bit PWM modulation output. |
 | Inbuild LED | 13 | To turn on the inbuilt LED. |
-
-
+|Port Mapping / Pin Change Interrput|Port B| PCINT0 - PCINT7 (pin8-13)|
+||Port C|PCINT8 - PCINT14(pinA0-A5, reset)|
+||Port D| PCINT16 - PCINT23(pin0-pin7)|
 
 ### Note: Driving Load
 As a reminder, digital logic circuits have three logic states: **high, low and floating (or high impedance)**.
