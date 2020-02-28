@@ -85,7 +85,7 @@ To configure interrupt there is a handy function in arduino **attachInterrupt()*
 - ISR: Interrupt Service Routine function
 
 - mode:  defines when the interrupt should be triggered. Four constants are predefined as valid values. 
-```
+
 ```
 - LOW to trigger the interrupt whenever the pin is low,
 
@@ -94,6 +94,10 @@ To configure interrupt there is a handy function in arduino **attachInterrupt()*
 - RISING to trigger when the pin goes from low to high,
 
 - FALLING for when the pin goes from high to low.
+
+```
+
+### Sample Code
 ```c
 int pin = 2; //define interrupt pin to 2
 volatile int state = LOW; // To make sure variables shared between an ISR
