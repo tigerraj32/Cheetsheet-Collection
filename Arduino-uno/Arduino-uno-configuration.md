@@ -118,3 +118,54 @@ void blink() {
 }
 ```
 
+### Pin Change Interrupt
+!(refrences)[https://playground.arduino.cc/Main/PinChangeInterrupt/]
+
+Pin change interrput is not same as hardware interrupt, but can be used to monitor pin value change. It is possible to use pin change interrupts on **all** pins of the arduino using Pin Change Interrupt Requests.
+
+The interrupt can be enabled for each pin individually (analog and digital!), but there are only 3 interrupt vectors, so 6-8 pins share one service routine:
+
+- ISR (PCINT0_vect) pin change interrupt for D8 to D13
+- ISR (PCINT1_vect) pin change interrupt for A0 to A5
+- ISR (PCINT2_vect) pin change interrupt for D0 to D7
+
+### Configuration for pin change interrput.
+
+```c
+void pciSetup(byte pin)
+{
+    *digitalPinToPCMSK(pin) |= bit (digitalPinToPCMSKbit(pin));  // enable pin
+    PCIFR  |= bit (digitalPinToPCICRbit(pin)); // clear any outstanding interrupt
+    PCICR  |= bit (digitalPinToPCICRbit(pin)); // enable interrupt for the group
+}
+
+// ISR to handle each group
+ 
+ISR (PCINT0_vect) // handle pin change interrupt for D8 to D13 here
+ {    
+    
+ }
+ 
+ISR (PCINT1_vect) // handle pin change interrupt for A0 to A5 here
+ {
+    
+ }  
+ 
+ISR (PCINT2_vect) // handle pin change interrupt for D0 to D7 here
+ {
+    
+ }
+
+// Define interrupt pin 
+const byte interruptPin = 6;
+
+//setup as input
+  pinMode(interruptPin, INPUT_PULLUP);
+
+//configure for Pin Change Interrupt (PCI)  
+picSetup(interruptPin)
+
+
+```
+
+For more detail on interrupt: !(more)[https://gammon.com.au/interrupts]
