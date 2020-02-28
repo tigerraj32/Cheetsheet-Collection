@@ -60,4 +60,9 @@ void setup() {
   pinMode(13, OUTPUT);      // sets the digital pin 13 as output
   pinMode(13, INPUT);       //sets the digital pin 13 as input.
   pinMode(13, INPUT_PULLUP);  //sets the digital pin 13 as input with internal pull up resistor activated.
-}```
+}
+```
+
+
+
+## Interrupt
