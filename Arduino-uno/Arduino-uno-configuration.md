@@ -168,4 +168,48 @@ picSetup(interruptPin)
 
 ```
 
+
+
+### Demo code
+```c
+const byte ledPin = 13;
+const byte interruptPin = 2;
+const byte interruptPin1 = 6;
+volatile byte state = LOW;
+
+void pciSetup(byte pin)
+{
+    *digitalPinToPCMSK(pin) |= bit (digitalPinToPCMSKbit(pin));  // enable pin
+    PCIFR  |= bit (digitalPinToPCICRbit(pin)); // clear any outstanding interrupt
+    PCICR  |= bit (digitalPinToPCICRbit(pin)); // enable interrupt for the group
+}
+
+ISR (PCINT2_vect) // handle pin change interrupt for D0 to D7 here
+ {
+   state = LOW;
+ }  
+
+ 
+void setup() {
+  pinMode(ledPin, OUTPUT);
+  pinMode(interruptPin, INPUT_PULLUP);
+  pinMode(interruptPin1, INPUT_PULLUP);
+  
+  attachInterrupt(digitalPinToInterrupt(interruptPin), ledON, CHANGE);
+  pciSetup(interruptPin1);
+  Serial.begin(9600);
+}
+
+void loop() {
+  digitalWrite(ledPin, state);
+}
+
+void ledON() {
+  state = HIGH;
+}
+
+void ledOFF() {
+  state = LOW;
+}
+```
 For more detail on interrupt: !(more)[https://gammon.com.au/interrupts]
