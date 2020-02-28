@@ -53,6 +53,7 @@ As of Arduino 1.0.1, it is possible to enable the internal pullup resistors with
 pinMode(pin, mode)
 
 - pin: the Arduino pin number to set the mode of.
+
 - mode: mode: INPUT, OUTPUT, or INPUT_PULLUP.
 
 ```c
@@ -65,4 +66,51 @@ void setup() {
 
 
 
-## Interrupt
+## Hardware Interrupt
+
+In arduino there are two types of interrupt,
+- External Interrput.
+
+- Pin Change Interrupt.
+
+### External Interrupt
+These interrupt are interpreted by hardware and are very fast. These interrupts can be set to trigger on the event of RISING or FALLING or LOW levels. External Interrupt are attached to 
+- pin 2
+
+- Pin 3
+
+To configure interrupt there is a handy function in arduino **attachInterrupt()** that takes three parameter 
+- interrupt number: Normally you should use digitalPinToInterrupt(pin) to translate the actual digital pin to the specific interrupt number.
+
+- ISR: Interrupt Service Routine function
+
+- mode:  defines when the interrupt should be triggered. Four constants are predefined as valid values. 
+```
+```
+- LOW to trigger the interrupt whenever the pin is low,
+
+- CHANGE to trigger the interrupt whenever the pin changes value
+
+- RISING to trigger when the pin goes from low to high,
+
+- FALLING for when the pin goes from high to low.
+```c
+int pin = 2; //define interrupt pin to 2
+volatile int state = LOW; // To make sure variables shared between an ISR
+//the main program are updated correctly,declare them as volatile.
+
+void setup() {
+   pinMode(13, OUTPUT); //set pin 13 as output
+   attachInterrupt(digitalPinToInterrupt(pin), blink, CHANGE);
+   //interrupt at pin 2 blink ISR when pin to change the value
+} 
+void loop() { 
+   digitalWrite(13, state); //pin 13 equal the state value
+} 
+
+void blink() { 
+   //ISR function
+   state = !state; //toggle the state when the interrupt occurs
+}
+```
+
