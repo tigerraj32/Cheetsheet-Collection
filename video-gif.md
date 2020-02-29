@@ -1,5 +1,3 @@
-This notes is written by Sheldon. You can find me with #iOSBySheldon in Github, Youtube, Facebook, etc.
-
 ## Need
 Convert .mov/.MP4 to .gif
   
