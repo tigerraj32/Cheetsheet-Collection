@@ -8,4 +8,4 @@ There is a manual push button switch that will turn on / off the motor. The stat
 
 This feedback system will be handy when motor and monitor system is at different location.
 
-!()[./motor_feedback.png]
+![motor_feedback](./motor_feedback.png)
