@@ -54,8 +54,58 @@ we can run this php script via
 Output:
 > AwFmHNkA1HdM1VHFadu89nE3xZuKO3pLQ7cHOrCj2x2WZoSt                                                                                                                                                                    
 
+### Step 3: Create Node js script.
+You can use **chile_process module** to execute shell command in node js. [Tutorial on child_process](https://stackabuse.com/executing-shell-commands-with-node-js/)
 
-### Step 3: Create shell script to copy token into clipboard.
+Create node js script in **token.js** with following code
+
+```javascript
+const http = require('http'), { exec } = require('child_process');
+
+http.createServer((req, res) => {
+  // Give the path of your bat or exe file
+  exec('php /Volumes/Product/Research/uatci/token.php', (err, stdout, stderr) => {
+    console.log({ err, stdout, stderr });
+    
+    if (err) {
+      return res.writeHead(500).end(JSON.stringify(err));
+    }
+    
+    // Output of the script in stdout
+    return res.writeHead(200).end(stdout);
+  });
+}).listen(8000);
+console.log('Server running at http://127.0.0.1:8000/');
+```
+
+Next start the node server with following command
+> node token.js
+
+
+### Step 4: Pre-Request Script for Postman.
+Firt create the new api request in post man, then select Pre-request Script and write following code to send http request before the actual api call happens and save the response in local variable.
+
+```javascript
+pm.variables.set("password", "AwErFEinDqiOvXFx2wVgHvt+Rpo0jdoTH0D0QldS");
+
+console.log("password: ", pm.variables.get("password"));
+
+pm.sendRequest('http://127.0.0.1:8000', (err, response) => {
+    // This will have the output of your batch file
+    console.log(response.text());
+    pm.variables.set("token", response.text());
+})
+
+```
+
+Finally, prepare the json body like this
+```json
+{"UserName": "iapple@javra.com", "Password":"{{password}}"}
+```
+
+## Creating custom Shortcut
+
+### Create shell script to copy token into clipboard.
 Mac provide some execlusive command such as **pbcopy** and **pbpaste** to copy the standard input into clipboard. Now create 
 **token.sh** script with following code
 
@@ -67,7 +117,7 @@ make the script executable.
 
 [Refer here for other platform](https://www.ostechnix.com/how-to-use-pbcopy-and-pbpaste-commands-on-linux/) for similar command like **pbcopy**
 
-### Step 4: Make the Shell script accessible globally
+### Make the Shell script accessible globally
 
 Create a symbolic link to token.sh in **/usr/local/bin/**  so that you can directly access this script from anywhere.
 
@@ -80,7 +130,7 @@ output:
 > AwFmHNkA1HdM1VHFadu89nE3xZuKO3pLQ7cHOrCj2x2WZoSt 
 
 
-### Step 5: Pre-Request Script for Postman.
+
 
 
 
