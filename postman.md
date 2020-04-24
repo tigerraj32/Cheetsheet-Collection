@@ -99,9 +99,9 @@ pm.sendRequest('http://127.0.0.1:8000', (err, response) => {
 ```
 
 Finally, prepare the json body like this
-```json
-{"UserName": "iapple@javra.com", "Password":"{{password}}"}
-```
+> {"UserName": "iapple@javra.com", "Password":"{{password}}"}
+and header 
+> token = {{token}}
 
 ## Creating custom Shortcut
 
