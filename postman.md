@@ -1,14 +1,15 @@
 # Dynamic Variable
 
+
 ## Setting dynamic variable via external script.
 
 Postman can only trigger HTTP request, So there is no direct way we can execute script such as **.sh script**. 
-But you can run a local server (here node js server) and write a node js script to execute a **shell script** or other executable file
+But you can run a local server (here node js server) and write a node js script to execute a **shell script** or other executable files
 Now let do that In step by step
 
 ### Step 1: Define Your Task
-I hav a php script that provide me the token. This token will be later use in api request. This script looks some thing 
-like this whichis saved as **TokenGenerato.php** 
+I have a PHP script that provide me with the token. This token will be later used in API request. This script looks something 
+like this which is saved as **TokenGenerato.php** 
 
 ```php
 <?php
@@ -78,12 +79,12 @@ http.createServer((req, res) => {
 console.log('Server running at http://127.0.0.1:8000/');
 ```
 
-Next start the node server with following command
+Next start the node server with the following command
 > node token.js
 
 
 ### Step 4: Pre-Request Script for Postman.
-Firt create the new api request in post man, then select Pre-request Script and write following code to send http request before the actual api call happens and save the response in local variable.
+First, create the new API request in postman, then select Pre-request Script and write the following code to send http request before the actual API call happens and save the response in local variable.
 
 ```javascript
 pm.variables.set("password", "AwErFEinDqiOvXFx2wVgHvt+Rpo0jdoTH0D0QldS");
@@ -98,7 +99,9 @@ pm.sendRequest('http://127.0.0.1:8000', (err, response) => {
 
 ```
 
-Finally, prepare the header 
+Finally, prepare the json body like this
+> {"UserName": "iapple@javra.com", "Password":"{{password}}"}
+and header 
 > token = {{token}}
 
 
