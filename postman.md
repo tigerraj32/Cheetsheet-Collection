@@ -98,9 +98,7 @@ pm.sendRequest('http://127.0.0.1:8000', (err, response) => {
 
 ```
 
-Finally, prepare the json body like this
-> {"UserName": "iapple@javra.com", "Password":"{{password}}"}
-and header 
+Finally, prepare the header 
 > token = {{token}}
 
 
