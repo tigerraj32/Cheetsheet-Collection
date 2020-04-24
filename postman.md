@@ -103,6 +103,8 @@ Finally, prepare the json body like this
 and header 
 > token = {{token}}
 
+
+
 ## Creating custom Shortcut
 
 ### Create shell script to copy token into clipboard.
