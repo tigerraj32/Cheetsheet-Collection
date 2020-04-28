@@ -49,4 +49,10 @@ self.present(playerViewController, animated: true) {
     }
  ```
 
+## Get current play head time
 
+```swift
+  player.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 10), queue: DispatchQueue.main) { [weak self] (time) in
+     print("Second:", time.seconds)
+}
+```
