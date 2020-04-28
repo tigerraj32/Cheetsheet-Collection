@@ -26,4 +26,27 @@ self.present(playerViewController, animated: true) {
  }
  
  ```
+ 
+ ## Get thumbnail image from video at specific time 
+ 
+ ```swift 
+ 
+    func imageAtPoint(time: Float64 = 1.0) -> UIImage? {
+        let asset = AVAsset(url: url1)
+        let assetImgGenerate = AVAssetImageGenerator(asset: asset)
+        assetImgGenerate.appliesPreferredTrackTransform = true
+        //Can set this to improve performance if target size is known before hand
+        //assetImgGenerate.maximumSize = CGSize(width,height)
+        let time = CMTimeMakeWithSeconds(time, 600)
+        do {
+            let img = try assetImgGenerate.copyCGImage(at: time, actualTime: nil)
+            let thumbnail = UIImage(cgImage: img)
+            return thumbnail
+        } catch {
+          print(error.localizedDescription)
+          return nil
+        }
+    }
+ ```
+
 
