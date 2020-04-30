@@ -60,3 +60,47 @@ Completed all task
 This function schedules a notification block to be submitted to the specified queue when all blocks associated with the 
 dispatch group have completed. If the group is empty (no block objects are associated with the dispatch group), the 
 notification block object is submitted immediately. When the notification block is submitted, the group is empty
+
+
+## Multiple ways of delaying async calls.
+
+**Option 1.**
+
+```swift
+DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+    self.yourFuncHere()
+}
+//Your function here    
+func yourFuncHere() {
+
+}
+```
+
+**Option 2.**
+
+```swift
+perform(#selector(yourFuncHere2), with: nil, afterDelay: 5.0)
+
+//Your function here  
+@objc func yourFuncHere2() {
+    print("this is...")
+}
+```
+
+**Option 3.**
+
+```swift
+Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(yourFuncHere3), userInfo: nil, repeats: false)
+
+//Your function here  
+@objc func yourFuncHere3() {
+
+}
+```
+
+**Option 4.**
+
+```swift
+sleep(5)
+```
+
