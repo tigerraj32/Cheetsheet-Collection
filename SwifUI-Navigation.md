@@ -1,4 +1,5 @@
 #  All about Navigation in SwiftUI
+refrence resource: [link](https://www.youtube.com/watch?v=nA6Jo6YnL9g)
 
 
 ## NavigationView : Creating navigation stack
