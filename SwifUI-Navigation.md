@@ -316,3 +316,54 @@ struct ContentView: View {
     }
 }
 ```
+
+## Navigation in watchOS
+
+SwiftUI is follow **write once apply every any where**  not **write once run any where**.  Saying that when we use the sample navigation view code for watchOS it  won't work because watchOS have no Navigation View. It just accept **NavigationLink**. 
+
+``` swift
+struct ContentView: View {
+    var body: some View {
+        
+        NavigationLink(destination: Text("Detail")){
+             Text("Hello, World!")
+        }
+       
+    }
+}
+```
+But if you want to share same code across iOS and watchOS then we will need to write little wrapper around it without any performance impact.
+
+```swift
+
+#if os(watchOS)
+struct NavigationView <Content: View>: View {
+    let content: ()-> Content
+    
+    init(@ViewBuilder content: @escaping ()-> Content) {
+        self.content = content
+    }
+    
+    var body: some View{
+        VStack(spacing: 0){
+            content()
+        }
+    }
+    
+}
+
+#endif
+
+struct ContentView: View {
+    var body: some View {
+        NavigationView{
+            NavigationLink(destination: Text("Detail")){
+                  Text("Hello, World!")
+             }
+            
+        }
+        
+    }
+}
+
+```
