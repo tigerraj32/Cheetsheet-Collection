@@ -60,6 +60,9 @@ ssh-add ~/.ssh/id_rsa
 ssh-add ~/.ssh/id_rsa_work1
 ```
 
+To list the ssh key attached to SSH agent
+> ssh-add -l
+
 In case we need to remove ssh entries 
 > ssh-add -D            //removes all ssh entries from the ssh-agent
 
