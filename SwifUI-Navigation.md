@@ -38,7 +38,7 @@ To customize tile size  **.navigationBarTitle** can take  **displayMode** as arg
 .navigationBarTitle("Navigation", displayMode: .inline)
 ```
 
-## Navigatoin Link:  Push and pop views
+## Navigatoin Link
 
 Navigation link is the way to link to new view. The **move to next view ** is automatically marked blue to mark  we can interact it link link.
 ```swift 
@@ -89,7 +89,7 @@ NavigationView{
 }
 ```
 
-## Programatic Navigation
+## Programatic Navigation (Push)
 
 ### isActive
 
@@ -134,7 +134,7 @@ struct ContentView: View {
 }
 
 ```
-
+# Programatic Navigation (Pop)
 ## Automatic pop out
 
 ```swift
@@ -160,7 +160,198 @@ struct ContentView: View {
     }
 }
 ```
+## Programatic POP or Dismiss
 
+You can programmatically pop back by using dismiss method on EnvironmentValue called **presentationMode**.
+
+```swift
+struct Detail: View {
+    @Environment(\.presentationMode) var presentation
+    var body: some View{
+        VStack{
+            Text("Detail Page")
+            Button("Go Back"){
+                self.presentation.wrappedValue.dismiss()
+            }
+        }
+    }
+}
+struct ContentView: View {
+    var body: some View {
+        NavigationView{
+            VStack{
+               Text("Master View")
+                NavigationLink(destination: Detail()) {
+                    Text("Go to Detail")
+                }
+            }
+        }
+    }
+}
+
+```
+
+## Programatic POP: Pop to root view
+
+If you have stact of views and want to pop to root view  from last stack, then we have two option. 
+Setting the view modifier **isDetailLink** to **false** on a **NavigationLink** is the key to getting pop-to-root to work. **isDetailLink** is **true** by **default** and is adaptive to the containing View. On iPad landscape for example, a Split view is separated and **isDetailLink** ensures the destination view will be shown on the right-hand side. Setting **isDetailLink** to false consequently means that the destination view will always be pushed onto the navigation stack; thus can always be popped off.
+
+ ### Passing State variable of root view as binding variable to subsequent child views.
+
+
+```swift
+
+struct Detail2: View {
+    @Binding var showRootView: Bool
+    var body: some View{
+        VStack{
+            Text("Detail Page 2")
+            Button("Go Home"){
+                self.showRootView = false
+            }
+        }
+    }
+}
+struct Detail1: View {
+    @Binding var showRootView: Bool
+    var body: some View{
+        VStack{
+            Text("Detail Page")
+            
+            NavigationLink(destination: Detail2(showRootView: $showRootView)) {
+               Text("Go to Detail 2")
+           }
+            .isDetailLink(false)
+           
+        }.navigationBarTitle("Detail 1", displayMode: .inline)
+    }
+}
+
+
+struct ContentView: View {
+    @State var showRootView: Bool = false
+    var body: some View {
+        NavigationView{
+            VStack{
+               Text("Master View")
+                NavigationLink(destination: Detail1(showRootView: $showRootView), isActive: $showRootView) {
+                    Text("Go to Detai 1")
+                }.isDetailLink(false)
+            }
+            .navigationBarTitle("Navigation")
+        }
+    }
+}
+
+```
+
+### Using Envigomental Variable
+
+- Step 1: create Observable class
+
+```swift
+final class NavigationFlowObject: ObservableObject {
+    static let root =  false
+    static let child = true
+    @Published var currentView: Bool = NavigationFlowObject.root
+}
+```
+- Step 2: Create an instance of NavigationFlowObject Object and pass it in envorimentObject.
+  
+  We can pass observedObject to child view via enviroment in two ways.  First via enviromentObject in ContentView like below
+
+```swift
+struct ContentView: View {
+    @ObservedObject var navigationFlow: NavigationFlowObject = NavigationFlowObject()
+    var body: some View {
+        NavigationView{
+            VStack{
+                
+                Text("Master View")
+                NavigationLink(destination: Detail1(), isActive:self.$navigationFlow.currentView) { //Binding variable
+                    Text("Go to Detai 1")
+                }.isDetailLink(false)
+            }
+            .navigationBarTitle("Navigation")
+        }
+        .environmentObject(navigationFlow)
+        
+    }
+}
+```
+
+
+Second by passsing enviromentObject in **RootView** at **SceneDelegate**
+
+```swift
+    // In SceneDelegate
+    let contentView = ContentView()environmentObject(NavigationFlowObject())
+     if let windowScene = scene as? UIWindowScene {
+            let window = UIWindow(windowScene: windowScene)
+            window.rootViewController = UIHostingController(rootView: contentView).environmentObject(NavigationFlowObject())
+            self.window = window
+            window.makeKeyAndVisible()
+        }
+
+// In ContentView (Master View) 
+ struct ContentView: View {
+    @EnvironmentObject var navigationFlow: NavigationFlowObject
+    var body: some View {
+        NavigationView{
+            VStack{
+                
+              Text("Master View")
+              NavigationLink(destination: Detail1(), isActive:self.$navigationFlow.currentView) { //Binding variable
+                    EmptyView()
+                }.isDetailLink(false)
+                
+                Button("Go To Detail 1"){
+                    self.navigationFlow.currentView = NavigationFlowObject.child
+                }
+            }
+            .navigationBarTitle("Navigation")
+            
+            .onReceive(self.navigationFlow.$currentView) { (rootViewActive) in // Publisher
+                print(rootViewActive)
+             }
+
+        }
+        
+    }
+}      
+```
+We can listen to change in Navigation FLow  **currentView** in **onReceive**
+
+-  Step 3: Create Detail  View
+
+```swift
+struct Detail2: View {
+    @EnvironmentObject var navigationFlow: NavigationFlowObject
+    var body: some View{
+        VStack{
+            Text("Detail Page 2")
+            Button("Go Home"){
+                self.navigationFlow.currentView = NavigationFlowObject.root
+            }
+        }
+    }
+}
+struct Detail1: View {
+   
+    var body: some View{
+        VStack{
+            Text("Detail Page")
+            
+            NavigationLink(destination: Detail2()) {
+               Text("Go to Detail 2")
+           }
+            .isDetailLink(false)
+           
+        }.navigationBarTitle("Detail 1", displayMode: .inline)
+    }
+}
+
+```
 ## EnviromentalObject:  Sharing data across the entire Navigation Stack 
 
 ```swift
@@ -367,4 +558,37 @@ struct ContentView: View {
     }
 }
 
+```
+
+
+# Action Sheet
+```swift
+struct ContentView: View {
+    @State private var showActionSheet = false
+    var body: some View {
+        
+        VStack{
+           Button("Show action sheet") {
+                self.showActionSheet = true
+            }
+        }.actionSheet(isPresented: $showActionSheet) { () -> ActionSheet in
+            ActionSheet(title: Text("Action Title"), message: Text("Action Message"), buttons: [
+                .cancel({
+                    print("Cancel Pressed")
+                }),
+                .default(Text("Action 1"), action: {
+                    print("Action 1")
+                }),
+                .default(Text("Action 2"), action: {
+                    print("Action 2")
+                }),
+                .destructive(Text("Destructive"), action: {
+                      print("Destructive")
+                })
+                
+                    ]
+            )
+        }
+    }
+}
 ```
