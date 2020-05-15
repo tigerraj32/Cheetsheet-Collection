@@ -139,3 +139,9 @@ $ npx react-native start
 $ npx react-native run-ios
 $ npx react-native run-android
 ```
+
+## React Native Debugger
+
+```bash
+$ brew cask install react-native-debugger
+```
