@@ -120,3 +120,72 @@ git push origin master
 > git clone git@github.com-work1: accountname/repo_name.git
 
 
+
+
+## Handling Comitter Identify
+
+Even after managing the ssh access to handle multiple git account the commiter identity will remain same for all repo and acccount. In order to correct this we need to set git **user.email** and **user.name** per repo.
+
+ - First go to repository directory in your local drive.
+ - Create local git user.name and user.email
+### Local set
+
+```bash
+git config user.email rajantwanabashu@gmail.co
+git config user.name 'tigerraj32'
+```
+
+### Local get
+```bash
+git config --get user.email
+git config --get user.name
+```
+This will create the config file inside **~/repo/.git/** which will look like
+
+> cat config 
+```bash 
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	ignorecase = true
+	precomposeunicode = true
+[remote "origin"]
+	url = git@github.com:accountname/demo.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[user]
+	name = tigerraj32
+ email = rajantwanabashu@gmail.com
+
+```
+
+### Global set
+```
+git config --global user.email mahmoud@zalt.me
+git config --global user.name 'Mahmoud Zalt'
+```
+In case you want to change the identity for xcode project
+```
+xcrun git config --global user.name 'new_user_name'
+xcrun git config --global user.email 'new@email.com'
+```
+
+### global get
+```
+git config --global --get user.email
+git config --global --get user.name
+```
+
+### This will create a global config file in **~/.gitconfig**
+
+
+Using --amend for the Very Last Commit
+
+In case you want to change just the very last commit, Git offers a very easy way to do this:
+
+```
+git commit --amend --author="tigerraj32 <rajantwnabashu@gmail.com>"
+```
+
+
