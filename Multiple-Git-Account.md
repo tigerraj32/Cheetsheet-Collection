@@ -122,7 +122,9 @@ git push origin master
 
 
 
-## Handling Comitter Identify
+## Handling Committer Identify
+
+Tutorial: [ref link](https://www.git-tower.com/learn/git/faq/change-author-name-email)
 
 Even after managing the ssh access to handle multiple git account the commiter identity will remain same for all repo and acccount. In order to correct this we need to set git **user.email** and **user.name** per repo.
 
