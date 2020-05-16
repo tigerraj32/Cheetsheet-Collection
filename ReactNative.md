@@ -147,12 +147,27 @@ $ brew cask install react-native-debugger
 ```
 
 
-## Common Issues
+=======
+## Common Issue 
 
+### Gradle
+
+JDK 14 does not support gradle version less than 6.3. So it is required to use gradle version greater than 6.3. 
+For this 
+- ```cd android```
+- In ```gradle-wrapper.properties``` please use grade version 6.3 or above.
+
+```
+distributionBase=GRADLE_USER_HOME
+distributionPath=wrapper/dists
+distributionUrl=https\://services.gradle.org/distributions/gradle-6.4.1-all.zip
+zipStoreBase=GRADLE_USER_HOME
+zipStorePath=wrapper/dists
+
+```
 ### Error: spawn ./gradlew EACCES
  This require to change permission to **gradlew**
  
  - ```$ cd android ```
  - ```$ chmod +x gradlew```
- 
 
