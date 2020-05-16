@@ -147,6 +147,7 @@ $ brew cask install react-native-debugger
 ```
 
 
+=======
 ## Common Issue 
 
 ### Gradle
@@ -164,3 +165,9 @@ zipStoreBase=GRADLE_USER_HOME
 zipStorePath=wrapper/dists
 
 ```
+### Error: spawn ./gradlew EACCES
+ This require to change permission to **gradlew**
+ 
+ - ```$ cd android ```
+ - ```$ chmod +x gradlew```
+
