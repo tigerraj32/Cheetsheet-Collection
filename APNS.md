@@ -132,6 +132,56 @@ foreach($push->getResponses() as $token => $response) {
 
 
 
+# Sending Pushnotification for Simulator
+
+### Code to enable receiving push notification
+From Xcode 11, simulator also supports receiving push notification.  To send notification to simulator we first need to give access to receive push notification.
+
+```swift
+
+func registerForPushNotifications() {
+        UNUserNotificationCenter.current()
+            .requestAuthorization(options: [.alert, .sound, .badge]) {(granted, error) in
+                print("Permission granted: \(granted)")
+        }
+}
+
+// Then in AppDelegate
+ func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // Override point for customization after application launch.
+        registerForPushNotifications()
+        return true
+    }
+```
+
+### Sending push notification to simulator.
+
+**simcctl** now supports sending push notification from xcode 11. 
+
+- Fist list the active simulator and copy the device id **{device}**
+
+  	```$ xcrun simctl list | grep Booted```
+  
+ - Prepare payload for notification and save in **sample.apns**  
+ 
+	 ```json
+	 {
+	    "aps": {
+		"alert": "Push Notifications Test",
+		"sound": "default",
+		"badge": 1
+	    }
+	}
+	 ```
+
+- Now send push notification
+	
+	```bash 
+	$ xcrun simctl push {device} {app bundle id}  sample.apns
+	//sample
+	$ xcrun simctl push 35523078-3384-4F96-AEE7-9F58D26BE65D com.rajantwanabashu.demo.SimulatorNotification  sample.apns
+	```
+ 
 
 
 
