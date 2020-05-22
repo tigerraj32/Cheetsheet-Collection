@@ -2,6 +2,7 @@
 
 SwiftUI provides the **TabView** that does exactly same as **UITabViewController** in UIKit.
 
+![](resources/tabview1.png)
 ```swift
 struct TabView1: View {
     var body: some View {
@@ -33,3 +34,4 @@ struct ContentView: View {
     }
 }
 ```
+
