@@ -59,5 +59,6 @@ convert -resize 167x167! $1  "$DIR/Icon_167.png";
 
 ### Generating icon for iOS
 
+You will first need App icon of size 1024x1024 and run following command
 > generateiOSIcon.sh /path/image.jpg
 
