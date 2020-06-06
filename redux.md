@@ -341,6 +341,122 @@ store.dispatch(actions.bugResolved(1));
 
 
 
+# Redux Toolkit
+
+Redux toolkit provides bunch of features that helps writing redux  code easier.
+
+### Installation
+
+    # NPM
+    npm install @reduxjs/toolkit
+
+    # Yarn
+    yarn add @reduxjs/toolkit
+
+
+### Configure store using redux tool kit
+
+A friendly abstraction over the standard Redux createStore function that adds good defaults to the store setup for a better development experience.
+
+```js
+//filename: congirureStore.js
+
+import {configureStore} from '@reduxjs/toolkit'
+import reducer from './bugs'
+
+export default function() {
+    return configureStore({
+        reducer: reducer
+    })
+}
+```
+
+### Creating action  / reducer using redux toolkit
+
+**createAction** is a helper function that create action. It return two properties
+- type : that tell which action is triggred
+- payload: that tells the payload to be used as action paramter.
+
+```js 
+//bugs.js
+
+import { createAction, createReducer } from '@reduxjs/toolkit'
+
+let lastID = 0
+//create action
+export const bugAdded = createAction("bugAdded");
+export const bugResolved = createAction("bugAdded");
+export const bugRemoved = createAction("bugAdded");
+
+//reducer
+//initial state, and action Handler as key value pair . Uses immer internally
+export default createReducer([], {
+    
+    [bugAdded.type]: (bugs, action) => {
+        bugs.push({
+            id: ++lastID,
+            desc: action.payload.desc,
+            resolved: false
+        })
+    },
+
+    [bugResolved.type]: (bugs, action) => {
+        const index = bugs.findIndex(bug => bug.id === action.payload.id)
+        bugs[index].resolved = true
+    }, 
+    [bugResolved.type]: (bugs, action) => {
+        bugs.filter(bug => bug.id !== action.payload.id);
+    }
+
+})
+
+```
+
+
+### Creating slice in redux toolkit
+
+**createSlice** is a function that accepts an initial state, an object full of reducer functions, and a "slice name", and automatically generates **action creators** and **action types**  that correspond to the **reducers** and **state**.
+
+```js
+import {createSlice } from '@reduxjs/toolkit'
+
+let lastID = 0
+
+const slice  = createSlice({
+    name: "bugs",
+    initialState: [],
+    reducers: {
+        bugAdded: (bugs, action) =>{
+            bugs.push({
+                id: ++lastID,
+                desc: action.payload.desctiption,
+                resolved: false
+            })
+        },
+
+        bugResolved: (bugs, action) => {
+            const index = bugs.findIndex(bug => bug.id === action.payload.id)
+            bugs[index].resolved = true
+        },
+
+        bugRemoved: (bugs, action) => {
+            
+            const temp = bugs.filter(bug => bug.id !== action.payload.id);
+            console.log(temp);
+            return temp;
+        }
+    }
+})
+
+console.log(slice);
+
+export const {bugAdded, bugResolved, bugRemoved} = slice.actions
+export default slice.reducer;
+```
+
+![](./resources/slice.png)
+
+
 
 ## webpack-dev-server
     -  Development server that provides live reloading
