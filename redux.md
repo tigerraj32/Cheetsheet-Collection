@@ -35,8 +35,7 @@ Actions are payloads of information that send data from your application to your
 Actions are plain JavaScript objects. Actions must have a type property that indicates the type of action being performed. Types should typically be defined as string constants. Once your app is large enough, you may want to move them into a separate module.
 
 
-Sample **actionTypes.js**
-- Action Types
+- Action Types filename: **actionTypes.js**
 
 ```js
     const ADD = 'bugAdded'
@@ -44,7 +43,7 @@ Sample **actionTypes.js**
     const RESOLVED = 'bugResolved'
 ```        
 
-- Action Creator
+- Action Creator filename: **action.js**
 
 Action creators are exactly that—functions that create actions. In redux, action creators simply return an action
 
@@ -82,6 +81,8 @@ Action creators are exactly that—functions that create actions. In redux, acti
 ### Reducer
 
 Reducers specify how the application's state changes in response to actions sent to the store. Remember that actions only describe what happened, but don't describe how the application's state changes.
+
+filename: **reducer.js**
 
 ```js
 
