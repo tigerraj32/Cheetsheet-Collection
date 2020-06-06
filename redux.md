@@ -21,8 +21,8 @@
 
 - So different part of ui no longer need to maintain it own state instead they get or store in store.
 
-- If something goes wrong Redux architect show how the change and why so transparently.
+- If something goes wrong, Redux can show how the change happened and why transparently.
 
-- Redux centralizes our application state and makes data flow transparent and predictable.
+- In short, Redux centralizes our application state and makes data flow transparent and predictable.
 
 
