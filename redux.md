@@ -189,6 +189,9 @@ store.dispatch( bugResolved(1));
 
 ```
 
+[](./resource/redux-1.png)
+
+
 
 ## webpack-dev-server
     -  Development server that provides live reloading
