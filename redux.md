@@ -26,3 +26,54 @@
 - In short, Redux centralizes our application state and makes data flow transparent and predictable.
 
 
+## Three Fundamental Principle in Redux
+
+### Actoin
+
+Actions are payloads of information that send data from your application to your store. They are the only source of information for the store. You send them to the store using  **store.dispatch().**
+
+Actions are plain JavaScript objects. Actions must have a type property that indicates the type of action being performed. Types should typically be defined as string constants. Once your app is large enough, you may want to move them into a separate module.
+
+
+Sample **action.js**
+- Action Types
+
+```js
+        const ADD = 'bugAdded'
+        const REMOVED = 'bugRemoved'
+        const RESOLVED = 'bugResolved'
+```        
+
+- Action Creator
+
+Action creators are exactly that—functions that create actions. In redux, action creators simply return an action
+
+```js
+    export const bugAdded = (text) => {
+        return { 
+            type: actionTypes.ADD,
+            payload: {
+                desc: text
+                }
+            }
+    }
+
+    export const bugRemoved = (bugId) => ({
+        
+            type: actionTypes.REMOVED,
+            payload: {
+                id: bugId
+            }
+        
+    })
+
+    export const bugResolved = (bugId) => ({
+        
+        type: actionTypes.RESOLVED,
+        payload: {
+            id: bugId
+        }
+
+    })
+```
+
