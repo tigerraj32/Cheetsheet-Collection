@@ -35,13 +35,13 @@ Actions are payloads of information that send data from your application to your
 Actions are plain JavaScript objects. Actions must have a type property that indicates the type of action being performed. Types should typically be defined as string constants. Once your app is large enough, you may want to move them into a separate module.
 
 
-Sample **action.js**
+Sample **actionTypes.js**
 - Action Types
 
 ```js
-        const ADD = 'bugAdded'
-        const REMOVED = 'bugRemoved'
-        const RESOLVED = 'bugResolved'
+    const ADD = 'bugAdded'
+    const REMOVED = 'bugRemoved'
+    const RESOLVED = 'bugResolved'
 ```        
 
 - Action Creator
@@ -49,6 +49,8 @@ Sample **action.js**
 Action creators are exactly that—functions that create actions. In redux, action creators simply return an action
 
 ```js
+    import * as  actionTypes from './actionTypes';
+
     export const bugAdded = (text) => {
         return { 
             type: actionTypes.ADD,
@@ -77,3 +79,75 @@ Action creators are exactly that—functions that create actions. In redux, acti
     })
 ```
 
+### Reducer
+
+Reducers specify how the application's state changes in response to actions sent to the store. Remember that actions only describe what happened, but don't describe how the application's state changes.
+
+```js
+
+    import * as  actionTypes from './actionTypes';
+     
+     const initialState = [
+    {
+        id: 1,
+        description: "",
+        resolved: false
+    }
+]
+
+
+let lastID = 0
+
+export default function reducer(state = initialState, action) {
+
+    switch (action.type) {
+        case actionTypes.ADD: {
+            return [
+                ...state,
+                {
+                    id: ++lastID,
+                    desc: action.payload.desc,
+                    resolved: false
+                }
+            ];
+        }
+
+        case actionTypes.REMOVED: {
+            return state.filter(bug => bug.id !== action.payload.id);
+        }
+
+        case actionTypes.RESOLVED: 
+            //return state.map( bug =>  bug.id !== action.payload.id ? bug : {...bug, resolved: true})
+            return state.map(bug => {
+                if (bug.id !== action.payload.id){
+                    return bug
+                }else{
+                    return {...bug, resolved: true}
+                }
+            })
+
+    
+
+        default: {
+            return state
+        }
+    }
+
+}
+     
+```
+
+
+## webpack-dev-server
+    -  Development server that provides live reloading
+
+Installation
+```
+npm install webpack-dev-server --save-dev
+```
+
+Start Dev server
+- configuration file: webpack.config.js
+```
+npm start
+```
