@@ -170,7 +170,7 @@ export default store;
 
 ### Redux in action
 
-Filename: **index.js**
+Filename: index.js
 
 ```js
 import store from './store'
@@ -189,7 +189,156 @@ store.dispatch( bugResolved(1));
 
 ```
 
-![](./resources/redux-1.png)
+
+## Structuring Files and Folders
+
+It will easy to follow the code if we could maintain the structure as following 
+
+    - src
+        - store
+            - bug-feature
+                - action.js
+                - actionTypes.js
+                - reducer.js
+
+
+
+## Duck Pattern
+
+One problem with about style of writing redux code is that every time we change some thing in bug-fearure, we need to touch 3 different files.  This will be difficult in large scale projects. So in duck pattern we combine all the action, acttionTypes and reducer in one file so that we don't need to jump into different files when we need to modify some thing.
+
+
+    - src
+        - store
+            - bug.js
+            -configureStore.js
+    - index.js
+
+FileName: **bug.js**
+```js   
+//action types
+const ADD = 'bugAdded'
+const REMOVED = 'bugRemoved'
+const RESOLVED = 'bugResolved'
+
+
+//action creators
+export const bugAdded = (text) => {
+    return { 
+        type: ADD,
+         payload: {
+             desc: text
+            }
+        }
+  }
+
+export const bugRemoved = (bugId) => ({
+    
+        type: REMOVED,
+        payload: {
+            id: bugId
+        }
+    
+ })
+
+export const bugResolved = (bugId) => ({
+    
+    type: RESOLVED,
+    payload: {
+        id: bugId
+    }
+
+})
+
+let lastID = 0
+
+const initialState = [
+    {
+        id: lastID,
+        description: "",
+        resolved: false
+    }
+]
+
+export default  function reducer(state = initialState, action) {
+
+    switch (action.type) {
+        case ADD: {
+            return [
+                ...state,
+                {
+                    id: ++lastID,
+                    desc: action.payload.desc,
+                    resolved: false
+                }
+            ];
+        }
+
+        case REMOVED: {
+            return state.filter(bug => bug.id !== action.payload.id);
+        }
+
+        case RESOLVED: 
+            //return state.map( bug =>  bug.id !== action.payload.id ? bug : {...bug, resolved: true})
+            return state.map(bug => {
+                if (bug.id !== action.payload.id){
+                    return bug
+                }else{
+                    return {...bug, resolved: true}
+                }
+            })
+        default: {
+            return state
+        }
+    }
+
+}
+
+
+```
+
+
+FIleName: **congigureStore.js**
+
+```js
+import { createStore} from 'redux'
+import reducer from './bugs'
+
+import {devToolsEnhancer} from 'redux-devtools-extension';
+
+export default function configrireStore (){
+    const store = createStore(
+        reducer,
+        devToolsEnhancer({trace: true})
+        );
+
+return store
+}
+
+```
+
+
+Now in **index.js**
+
+```js
+import configureStore from './store/configureStore'
+import * as actions from './store/bugs'
+
+
+const store = configureStore();
+
+const unsbuscribed = store.subscribe(() => {
+    console.log("store changed ", store.getState());
+})
+
+
+store.dispatch(actions.bugAdded("Bug 1"));
+store.dispatch(actions.bugAdded("Bug 2"));
+store.dispatch(actions.bugRemoved(2));
+store.dispatch(actions.bugResolved(1));
+
+```
+
 
 
 
