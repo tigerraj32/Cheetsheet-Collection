@@ -38,9 +38,9 @@ Actions are plain JavaScript objects. Actions must have a type property that ind
 - Action Types filename: **actionTypes.js**
 
 ```js
-    const ADD = 'bugAdded'
-    const REMOVED = 'bugRemoved'
-    const RESOLVED = 'bugResolved'
+    export const ADD = 'bugAdded'
+    export const REMOVED = 'bugRemoved'
+    export const RESOLVED = 'bugResolved'
 ```        
 
 - Action Creator filename: **action.js**
@@ -88,16 +88,18 @@ filename: **reducer.js**
 
     import * as  actionTypes from './actionTypes';
      
+     let lastID = 0
+
      const initialState = [
     {
-        id: 1,
+        id: lastID,
         description: "",
         resolved: false
     }
 ]
 
 
-let lastID = 0
+
 
 export default function reducer(state = initialState, action) {
 
@@ -136,6 +138,55 @@ export default function reducer(state = initialState, action) {
 
 }
      
+```
+
+### Store 
+
+The Store is the object that brings action and reducer together. The store has the following responsibilities:
+
+    - Holds application state;
+    - Allows access to state via getState();
+    - Allows state to be updated via dispatch(action);
+    - Registers listeners via subscribe(listener);
+    - Handles unregistering of listeners via the function returned by subscribe(listener).
+
+It's important to note that you'll only have a single store in a Redux application. When you want to split your data handling logic, you'll use **reducer composition** instead of many stores.
+
+filename: **store.js**
+
+```js
+import {createStore} from 'redux'
+import reducer from './reducer'
+import {devToolsEnhancer} from 'redux-devtools-extension';
+const store = createStore(
+    reducer,
+    //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    devToolsEnhancer({trace: true})
+    );
+
+export default store;
+```
+
+
+### Redux in action
+
+Filename: index.js
+
+```js
+import store from './store'
+import {bugAdded,bugRemoved, bugResolved} from './actions'
+
+//subscribe return function  to unsubscribe from subscription
+const unsbuscribed = store.subscribe(() => {
+    console.log("store changed ", store.getState());
+})
+
+store.dispatch(bugAdded("Bug 1"));
+store.dispatch(bugAdded("Bug 2"));
+store.dispatch(bugRemoved(2));
+store.dispatch( bugResolved(1));
+ 
+
 ```
 
 
