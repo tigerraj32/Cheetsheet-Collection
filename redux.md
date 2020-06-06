@@ -170,7 +170,7 @@ export default store;
 
 ### Redux in action
 
-Filename: index.js
+Filename: **index.js**
 
 ```js
 import store from './store'
@@ -189,7 +189,7 @@ store.dispatch( bugResolved(1));
 
 ```
 
-[](./resource/redux-1.png)
+![](./resources/redux-1.png)
 
 
 
