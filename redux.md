@@ -612,6 +612,95 @@ store.dispatch(projectActions.projectAdded({desctiption: "Project 1"}))
 ![](./resources/combine.png)
 
 
+
+## Selector / Reselect
+
+There are times when we need to get tht computed values from redux store, such as list of unresolved bugs. This can be done  as following
+        
+        const unresolvedBugs = store.getState().bugs.filter(bug => !bug.resolved)
+
+but this can quickly turn  into expensive operation  when the complexity increases, because every time we make a call to this even tho there is no change in bug status, it take same amout of computation time.  There is no caching and every result will take new memory.  So we will require to  to memorize the result so that result will be calculated from cache if there is no change in bug status. 
+
+For this  there's a popular library called **reselect**
+
+        npm install reselect
+
+
+```js
+//bug.js
+
+// {old code}
+
+
+/*
+export const getUnresolvedBugs = state => {
+    return state.entities.bugs.filter(bug => !bug.resolved)
+}
+
+*/
+import {createSelector} from 'reselect'
+
+export const getUnresolvedBugs =  createSelector(
+    state => state.entities.bugs,
+    bugs => bugs.filter(bug => !bug.resolved)
+)
+
+```
+
+```js
+//index.js
+const x = getUnresolvedBugs(store.getState())
+const y = getUnresolvedBugs(store.getState())
+console.log(x ===  y) //return  true
+
+```
+
+## Middleware
+
+It provides a third-party extension point between dispatching an action, and the moment it reaches the reducer. People use Redux middleware for 
+- logging, 
+- crash reporting, 
+- talking to an asynchronous API, 
+- routing, and more.
+
+
+### Middleware for logging
+
+
+create logger.js  
+
+```js
+// each middleware take store, next or reducer, and action as curring parameter.
+
+const logger = store => next => action => {
+    
+    console.group(action.type)
+    console.info('dispatching', action)
+    let result = next(action)
+    console.log('next state', store.getState())
+    console.groupEnd()
+    return result
+
+  }
+
+  export default logger;
+```
+ Then in configureStore.js
+
+ ```js
+ import logger  from './middleware/logger'
+ 
+ //root store
+export default function() {
+    return configureStore({
+        reducer: entitiesReducer,
+        middleware: [logger]
+
+    })
+}
+
+ ```
+
 ## webpack-dev-server
     -  Development server that provides live reloading
 
