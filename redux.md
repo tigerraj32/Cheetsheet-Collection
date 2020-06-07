@@ -671,6 +671,7 @@ create logger.js
 
 ```js
 // each middleware take store, next or reducer, and action as curring parameter.
+// We need to make call to next(action) in order to invoke action event.
 
 const logger = store => next => action => {
     
@@ -689,7 +690,7 @@ const logger = store => next => action => {
 
  ```js
  import logger  from './middleware/logger'
- 
+
  //root store
 export default function() {
     return configureStore({
@@ -700,6 +701,17 @@ export default function() {
 }
 
  ```
+
+
+Now when we make a call to we get following logs in console
+```js
+//index.js
+
+store.dispatch(bugAdded({desctiption: "Bug 1"}));
+```
+![](./resources/middleware.png)
+
+
 
 ## webpack-dev-server
     -  Development server that provides live reloading
