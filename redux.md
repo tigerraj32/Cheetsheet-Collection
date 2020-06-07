@@ -460,6 +460,158 @@ export default slice.reducer;
 
 
 
+# Combine reducers
+
+In a complex project it possible to multiple slices of store sucn as
+
+    {
+        bugs: [],
+        projects:[]
+    }
+
+It is good practise to put all these different piece of slices to single parent slices called **entities**   some thing like this,
+
+    {
+        entities: {
+            bugs:[],
+            projects:[]
+        }
+    }
+
+
+Here's how we can 
+
+**create slice for bugs**
+
+```js
+//bugs.js
+
+import {createSlice } from '@reduxjs/toolkit'
+
+let lastID = 0
+
+const slice  = createSlice({
+    name: "bugs",
+    initialState: [],
+    reducers: {
+        bugAdded: (bugs, action) =>{
+            bugs.push({
+                id: ++lastID,
+                desc: action.payload.desctiption,
+                resolved: false
+            })
+        },
+
+        bugResolved: (bugs, action) => {
+            const index = bugs.findIndex(bug => bug.id === action.payload.id)
+            bugs[index].resolved = true
+        },
+
+        bugRemoved: (bugs, action) => {
+            
+            const temp = bugs.filter(bug => bug.id !== action.payload.id);
+            console.log(temp);
+            return temp;
+        }
+    }
+})
+
+export const {bugAdded, bugResolved, bugRemoved} = slice.actions
+export default slice.reducer;
+```
+
+**create slice for project**
+
+```js
+//project.js
+
+//Create action with redux tool kit
+import {createSlice } from '@reduxjs/toolkit'
+
+let lastID = 0
+
+const slice  = createSlice({
+    name: "projects",
+    initialState: [],
+    reducers: {
+        projectAdded: (projects, action) =>{
+            projects.push({
+                id: ++lastID,
+                desc: action.payload.desctiption,
+               
+            })
+        }
+    }
+})
+
+export const {projectAdded} = slice.actions
+export default slice.reducer;
+
+```
+
+
+**To combile slices**
+
+```js
+//configureStore.js
+
+
+import {configureStore} from '@reduxjs/toolkit'
+import {combineReducers} from 'redux'
+
+import reducerBug from './bugs'
+import reducerProject from './projects'
+
+
+// bugs and project store
+const reducers =  combineReducers({
+    bugs: reducerBug,
+    projects: reducerProject
+})
+
+//entities store
+const entitiesReducer = combineReducers({
+    entities: reducers
+})
+
+//root store
+export default function() {
+    return configureStore({
+        reducer: entitiesReducer
+    })
+}
+
+
+```
+
+**Using combined reducer**
+
+```js
+//index.js
+
+import configureStore from './store/configureStore'
+import * as actions from './store/bugs'
+import * as projectActions from './store/projects'
+
+
+const store = configureStore();
+
+const unsbuscribed = store.subscribe(() => {
+    console.log("store changed ", store.getState());
+})
+
+
+store.dispatch(actions.bugAdded({desctiption: "Bug 1"}));
+store.dispatch(actions.bugAdded({desctiption: "Bug 2"}));
+store.dispatch(actions.bugAdded({desctiption: "Bug 3"}));
+store.dispatch(actions.bugResolved({id:1}));
+store.dispatch(actions.bugRemoved({id:2}));
+store.dispatch(projectActions.projectAdded({desctiption: "Project 1"}))
+```
+
+![](./resources/combine.png)
+
+
 ## webpack-dev-server
     -  Development server that provides live reloading
 
