@@ -712,6 +712,38 @@ store.dispatch(bugAdded({desctiption: "Bug 1"}));
 ![](./resources/middleware.png)
 
 
+### Parameterize middleware
+ Most often we need to pamaterize the logger function so that we don't print log message in production server, but only in dev server. For this we need to change the logger function
+
+ ```js
+ 
+const logger = param => store => next => action => {
+    
+    console.group(action.type)
+    console.log("Logging", param)
+    console.info('dispatching', action)
+    let result = next(action)
+    console.log('next state', store.getState())
+    console.groupEnd()
+    return result
+
+  }
+
+  export default logger;
+ ```
+
+and then in configureStore.js
+
+```js
+export default function() {
+    return configureStore({
+        reducer: entitiesReducer,
+        middleware: [logger({destination: 'console'})]
+
+    })
+}
+```
+
 
 ## webpack-dev-server
     -  Development server that provides live reloading
