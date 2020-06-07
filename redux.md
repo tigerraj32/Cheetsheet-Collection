@@ -462,7 +462,7 @@ export default slice.reducer;
 
 # Combine reducers
 
-In a complex project it possible to multiple slices of store sucn as
+In a complex project it is  possible to use multiple slices of store such as
 
     {
         bugs: [],
