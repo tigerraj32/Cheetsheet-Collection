@@ -207,7 +207,7 @@ your code should now look like this
 
 To let the CodePush runtime know which deployment it should query for updates against, open the project's **Info.plist** file and add a new entry named CodePushDeploymentKey, whose value is the key of the deployment you want to configure this app against
 
-```plist
+```
     <key>CodePushDeploymentKey</key>
 	<string>R7Ms5WZiHbQ4fl4XB4_8HsAhPcm9ky53Ck1Am</string>
 ```
@@ -220,7 +220,7 @@ CodePush plugin makes HTTPS requests to the following domains:
 
 If you want to change the default HTTP security configuration for any of these domains, you have to define the NSAppTransportSecurity (ATS) configuration inside the project's Info.plist file:
 
-```plist
+```
 <plist version="1.0">
   <dict>
     <!-- ...other configs... -->
@@ -369,6 +369,19 @@ export default CodePushWrapper(App);
 Now after all the above configuration we can dispatch the new release to appcenter via following command. Then depending on the codepush option your update will be silently installed at client end.
 
         appcenter codepush release-react -a <ownerName>/<appName> -d <deploymentName>
+
+
+
+# Other useful links
+- https://www.youtube.com/watch?v=j3pGF2Mj0zI
+- https://www.youtube.com/watch?v=b_Q1apn63q0
+- https://www.youtube.com/playlist?list=PLucG_ap4OxzhOGhcO4pJxm-ojSV5LMHWi
+
+
+
+
+
+
 
 
 
