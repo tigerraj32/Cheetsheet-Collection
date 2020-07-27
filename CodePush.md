@@ -264,13 +264,13 @@ For Staging
   - Go to build settings and change the `Packaging->Info.plist file` to `AppName-uat.plist`
   - Now you have two plist file each for production and staging build, we can now configure the codepush deployment for each target
     - In AppName.plst add `CodePushDeploymentKey` = `Production key in codepush` and `DeploymentType` = `Production`
-    - In AppName-UAT.plst add `CodePushDeploymentKey` = `Staging key in codepush` and `DeploymentType` = `Staging`
+    - In AppName-UAT.plist add `CodePushDeploymentKey` = `Staging key in codepush` and `DeploymentType` = `Staging`
   - We will also get two scheme one for each target. This will help us choose production or staging build during debug and release activity.
   
 
   ### Sending Deployment Key and Type info to React Native from iOS
 
-  Now its time to send the deployment key and deployment type to react native part from iOS end. Open AppDelegate.m and add the following code to send key information as a props to react native code. Based on selected scheme we will get respective key and type.
+  Now its time to send the deployment key and deployment type to react native part from iOS end. Open AppDelegate.m and add the following code to send key information as initialProps to react native code. Based on selected scheme we will get respective key and type.
 
   ```c
   - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
