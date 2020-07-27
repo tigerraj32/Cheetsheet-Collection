@@ -203,7 +203,7 @@ your code should now look like this
 }
 ```
 
-**Using Deployment Kewy**
+**Using Deployment Key**
 
 To let the CodePush runtime know which deployment it should query for updates against, open the project's **Info.plist** file and add a new entry named CodePushDeploymentKey, whose value is the key of the deployment you want to configure this app against
 
@@ -238,6 +238,82 @@ If you want to change the default HTTP security configuration for any of these d
   </dict>
 </plist>
 ```
+
+### 3.2 Managing multiple deployment target
+
+In order to effectively test your releases, it is critical that you leverage the `Staging` and `Production` enviroment and deploy the repease accordingly.
+
+If you use appcenter dashboard, creating codepush deployment creates both production and staging keys. If you are using appcenter cli then we first need to create keys for `production` and `staging`
+
+For production:
+    
+    appcenter codepush deployment add -a <ownerName>/<appName> Production
+    
+For Staging
+
+    appcenter codepush deployment add -a <ownerName>/<appName> Staging
+   
+  
+  After that it time to create Production and Staging target in Xcode.  Follow below steps for this.
+
+  - Open Xcode workspace
+  - Select project navigator and click on xcode project
+  - By default you will see one target (AppName) created initially along with other test target.
+  - Duplicate the default target (AppName) and rename the target to AppName-UAT.
+  - This process will create seperate `plist` file , rename this to AppName-uat.plist
+  - Go to build settings and change the `Packaging->Info.plist file` to `AppName-uat.plist`
+  - Now you have two plist file each for production and staging build, we can now configure the codepush deployment for each target
+    - In AppName.plst add `CodePushDeploymentKey` = `Production key in codepush` and `DeploymentType` = `Production`
+    - In AppName-UAT.plst add `CodePushDeploymentKey` = `Staging key in codepush` and `DeploymentType` = `Staging`
+  - We will also get two scheme one for each target. This will help us choose production or staging build during debug and release activity.
+  
+
+  ### Sending Deployment Key and Type info to React Native from iOS
+
+  Now its time to send the deployment key and deployment type to react native part from iOS end. Open AppDelegate.m and add the following code to send key information as a props to react native code. Based on selected scheme we will get respective key and type.
+
+  ```c
+  - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+  
+  NSString *deploymentKey = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CodePushDeploymentKey"];
+  NSString *deploymentType = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"DeploymentType"];
+   
+  NSDictionary *props;
+
+  props = @{@"CodePushDeploymentKey" : deploymentKey, @"DeploymentType":deploymentType};
+
+  
+  NSLog(@"%@", props);
+  
+  RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
+  RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
+                                                   moduleName:@"zConnect"
+                                            initialProperties:props];
+  
+  rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
+  
+  self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+  UIViewController *rootViewController = [UIViewController new];
+  rootViewController.view = rootView;
+  self.window.rootViewController = rootViewController;
+  [self.window makeKeyAndVisible];
+  return YES;
+}
+```
+
+
+### Requesting the  bundle update from React Native.
+
+Open App.js and following code. here deploymentKey will determine which bundle to download from appcenter to get updates.
+
+```js
+useEffect(() => {
+        CodePush.sync({deploymentKey:props.CodePushDeploymentKey,  installMode: CodePush.InstallMode.ON_NEXT_RESUME, minimumBackgroundDuration: 10 }, codepushSyncStatus, null); //10 sec  
+      }, [])
+```
+
+
 
 ## 4. Installing the new update [docs](https://docs.microsoft.com/en-us/appcenter/distribution/codepush/tutorials)
 
