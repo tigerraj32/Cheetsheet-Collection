@@ -209,7 +209,7 @@ class RequestBuilder {
 
 ```
 
-Now let's create builder to URLSessionDataTask
+### Implementation 2: Now let's create builder to URLSessionDataTask
 
 ```swift
 class TaskBuilder {
@@ -265,6 +265,7 @@ task.resume()
 Factory pattern involves a Factory that creates variety of objects but hide the logic behind object creation. Such object are related to each other either by sharing common parent class or conform to same protocol. The Factory object contains all the logic that allows it to instantiate the correct product to return to the caller.
 
 
+### Implementation1:
 ```swift 
 
 // Parent Class
@@ -349,6 +350,7 @@ Depending on the country  the age group are different. So **CanadianToyFactory**
 
 
 
+### Implementation 2:
 Below is one more example where we create a factory method to get subjects for each semester.
 
 ```swift
