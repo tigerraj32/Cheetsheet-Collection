@@ -113,13 +113,18 @@ We can get the **<ownerName>/<appName>** pair by running following command
 
         // returns rajan.twanabashu-zakipoint.com/AudoUpdatePush
 
-To get the list of deployment keys 
+**To get the list of deployment keys**
 
         appcenter codepush deployment list  -a <ownerName>/<appName>  --displayKeys
 
 
-or just this to view deployment metrics
+**To just this to view deployment metrics**
+
         appcenter codepush deployment list  -a <ownerName>/<appName>
+
+**To list version history**
+
+        appcenter codepush deployment history -a  <appowner/appname> <deployment Name>
 
 To rename or delete deployment keys
 
@@ -454,7 +459,6 @@ Now after all the above configuration we can dispatch the new release to appcent
 - https://www.youtube.com/watch?v=j3pGF2Mj0zI
 - https://www.youtube.com/watch?v=b_Q1apn63q0
 - https://www.youtube.com/playlist?list=PLucG_ap4OxzhOGhcO4pJxm-ojSV5LMHWi
-
 
 
 
