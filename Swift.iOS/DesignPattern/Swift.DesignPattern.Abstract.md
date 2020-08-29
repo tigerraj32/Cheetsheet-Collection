@@ -4,7 +4,7 @@ The abstract factory pattern provides a way to encapsulate a group of individual
 
 Here's the example. We need to create factory that produces Laptop and mobile. Both of them share common properties but are totally different in the end user experience. Here's how abstract factory pattern make it easy to work with.
 
-[](./resources/Abstract-Factory.png)
+![](./resources/Abstract-Factory.png)
 
 ```swift
 

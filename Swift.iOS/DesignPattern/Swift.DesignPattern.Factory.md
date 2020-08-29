@@ -4,7 +4,7 @@ Factory design pattern is a type of creational pattern which creates variety of 
 
 Generally factory method consist of satic method that instantiate the variety of differnt object from same family.
 
-[](./resources/Factory-Method.png)
+![](./resources/Factory-Method.png)
 
 ### Problem identification 
 
