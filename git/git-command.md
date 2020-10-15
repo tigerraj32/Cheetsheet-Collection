@@ -36,5 +36,16 @@
 
 
 
+### git checkout from specific commit
+
+- First get the commid id for specific branch 
+        
+        git log origin branch_name
+        
+- Then copy the comit id you want to revert back
+- Now hard reset back to commit id
+
+        git reset --hard commit_id
+
 
 
