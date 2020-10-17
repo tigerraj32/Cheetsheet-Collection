@@ -32,9 +32,7 @@
     git remote -v 
 
     git remote show origin
-
-
-
+  
 
 ### git checkout from specific commit
 
@@ -48,4 +46,28 @@
         git reset --hard commit_id
 
 
+### git cache user credential
 
+Turn on credential helper so that Git will save your password for some time. By default Git will cache for 15 minutes
+
+        git config --global credential.helper cache
+        # set git to use the credential memory cache
+        
+        # To increase the cache timeout
+        git config --global credential.helper 'cache --timeout=3600
+        #Set the cache timeout to 1 hrs (setting is in seconds)
+        
+         
+To save user credential permanently. 
+
+         git config --global credential.helper store
+         
+         #then run git pull and ener username and password.
+         git pull
+
+Password is store in plain text in ~/.git-credentials. So if you change the git password then you should remove the store credential from `~/.git-credential`        
+         
+         
+         
+         
+         
