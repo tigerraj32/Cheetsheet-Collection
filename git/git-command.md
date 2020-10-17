@@ -1,7 +1,7 @@
 
 # List of mostly used git commands
 
-### Setup local git repo
+## Setup local git repo
 <br>
 
 - This will transform current directory to a git repo.
@@ -14,19 +14,19 @@
 
 
 
-### Git add remote repo
+## Git add remote repo
 <br>
 
   - To add remote repo
 
         git remote add <remote url>
 
-### Clone remote repo
+## Clone remote repo
 <br>
 
     git clone <remote repo>
 
-### Git detail
+## Git detail
 <br>
 
     git remote -v 
@@ -34,7 +34,7 @@
     git remote show origin
   
 
-### git checkout from specific commit
+## git checkout from specific commit
 
 - First get the commid id for specific branch 
         
@@ -46,7 +46,7 @@
         git reset --hard commit_id
 
 
-### git cache user credential
+## git cache user credential
 
 Turn on credential helper so that Git will save your password for some time. By default Git will cache for 15 minutes
 
@@ -65,7 +65,7 @@ To save user credential permanently.
          #then run git pull and ener username and password.
          git pull
 
-Password is store in plain text in ~/.git-credentials. So if you change the git password then you should remove the store credential from `~/.git-credential`        
+Password is store in plain text in `~/.git-credentials`. So if you change the git password then you should remove the store credential from `~/.git-credential`        
          
          
          
