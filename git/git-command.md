@@ -68,6 +68,21 @@ To save user credential permanently.
 Password is store in plain text in `~/.git-credentials`. So if you change the git password then you should remove the store credential from `~/.git-credential`        
          
          
-         
+
+## View file at specific commit
+
+Grab the commit hash from git log
+
+        git reflog
+        
+Use the commit hash to show file content from specific commit
+
+        git show <commit_hash>:/path/file
+        
+Or save to new file
+
+        git show <commit_hash>:/path/file
+        
+        
          
          
