@@ -8,14 +8,6 @@ ESP8266 modules can operate as a station, so we can connect it to the Wi-Fi netw
 
 ![pinout_arduino_uno](../..//resources/WiFi-station-mode.png)
 ```c++
-#include <Arduino.h>
-#include <ESP8266WiFi.h>
-
-#ifndef STASSID
-#define STASSID "ssid"
-#define STAPSK "password"
-#endif
-
 void connectToNetwork(char *ssid, char *password)
 {
 
@@ -30,7 +22,12 @@ void connectToNetwork(char *ssid, char *password)
     delay(1000);
   }
 
-  WiFi.mode(WIFI_STA); //configure as stations that connect to wifi-network (AP)
+  //WiFi.mode(WIFI_STA); //configure as stations that connect to wifi-network (AP)
+
+  IPAddress staticIP(192, 168, 100, 161);
+  IPAddress gateway(192, 168, 100, 1);
+  IPAddress subnet(255, 255, 255, 0);
+  WiFi.config(staticIP, gateway, subnet);
 
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED)
@@ -39,16 +36,18 @@ void connectToNetwork(char *ssid, char *password)
     Serial.print(".");
   }
   Serial.println("");
-  Serial.println("WiFi connected");
-  Serial.println("IP address: ");
-  Serial.println(WiFi.localIP()); //You can get IP address assigned to ESP
+  Serial.println("WiFi connected with following info");
+
+  Serial.printf(" Wifi SSID: %s\n Wifi PSK: %s\n Wifi AP MAC Address: %s\n RSSI: %d dBm\n", WiFi.SSID().c_str(), WiFi.psk().c_str(), WiFi.BSSIDstr().c_str(), WiFi.RSSI());
+  Serial.printf(" DNS #1: %s, DNS #2: %s\n", WiFi.dnsIP().toString().c_str(), WiFi.dnsIP(1).toString().c_str());
+  Serial.printf(" IP Address: %s\n Gataway IP: %s\n Subnet mask: %s\n", WiFi.localIP().toString().c_str(), WiFi.gatewayIP().toString().c_str(), WiFi.subnetMask().toString().c_str());
+};
+
 };
 
 void setup()
 {
-  // initialize LED digital pin as an output.
-  pinMode(LED_BUILTIN, OUTPUT);
-
+ 
   Serial.begin(115200);
   // Serial.setDebugOutput(true);
   connectToNetwork(STASSID, STAPSK);
