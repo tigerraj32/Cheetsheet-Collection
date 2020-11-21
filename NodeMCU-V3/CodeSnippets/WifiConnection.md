@@ -10,6 +10,7 @@ ESP8266 modules can operate as a station, so we can connect it to the Wi-Fi netw
 <br>
     [Documentation](https://arduino-esp8266.readthedocs.io/en/latest/esp8266wifi/station-class.html)
 <br>
+
 ```c++
 void connectToNetwork(char *ssid, char *password)
 {
@@ -86,4 +87,53 @@ An access point (AP) is a device that provides access to a Wi-Fi network to othe
 Even though ESP8266 can operate in soft-AP + station mode, it actually has only one hardware channel. Therefore in soft-AP + station mode, the soft-AP channel will default to the number used by station. For more information how this may affect operation of stations connected to ESP8266’s soft-AP, please check this FAQ entry on Espressif forum.
 
 <br>
+
 [Documentation](https://arduino-esp8266.readthedocs.io/en/latest/esp8266wifi/soft-access-point-class.html)
+
+
+### Sample Code
+
+```c++
+#include <Arduino.h>
+#include <ESP8266WiFi.h>
+
+#ifndef STASSID
+#define STASSID "aarop_wlink"
+#define STAPSK "Aa9808907D"
+#endif
+
+void configureSoftAP()
+{
+  IPAddress local_IP(192, 168, 4, 22);
+  IPAddress gateway(192, 168, 4, 9);
+  IPAddress subnet(255, 255, 255, 0);
+
+  Serial.print("Setting soft-AP configuration ... ");
+  Serial.println(WiFi.softAPConfig(local_IP, gateway, subnet) ? "Ready" : "Failed!");
+
+  Serial.print("Setting soft-AP ... ");
+  Serial.println(WiFi.softAP("NodeMCU_WIFI", "1234567890") ? "Ready" : "Failed!");
+
+  Serial.print("Soft-AP IP address = ");
+  Serial.println(WiFi.softAPIP());
+}
+
+
+
+void setup()
+{
+  // initialize LED digital pin as an output.
+  pinMode(LED_BUILTIN, OUTPUT);
+
+  Serial.begin(115200);
+  // Serial.setDebugOutput(true);
+
+  //connectToNetwork(STASSID, STAPSK);
+  configureSoftAP();
+}
+
+void loop()
+{
+  Serial.printf("Stations connected = %d\n", WiFi.softAPgetStationNum()); // no of count connected to this ap.
+}
+```
