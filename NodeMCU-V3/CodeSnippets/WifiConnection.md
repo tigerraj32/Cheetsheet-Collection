@@ -7,6 +7,9 @@ Devices that connect to Wi-Fi networks are called stations (STA). Connection to 
 ESP8266 modules can operate as a station, so we can connect it to the Wi-Fi network.
 
 ![pinout_arduino_uno](../..//resources/WiFi-station-mode.png)
+<br>
+    [Documentation](https://arduino-esp8266.readthedocs.io/en/latest/esp8266wifi/station-class.html)
+<br>
 ```c++
 void connectToNetwork(char *ssid, char *password)
 {
