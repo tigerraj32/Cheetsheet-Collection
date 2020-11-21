@@ -79,3 +79,11 @@ An access point (AP) is a device that provides access to a Wi-Fi network to othe
 - Another handy application of soft-AP mode is to set up mesh networks. The ESP can operate in both soft-AP and Station mode so it can act as a node of a mesh network.
 
 ![](../../resources/esp8266-soft-access-point.png)
+
+### Notes:
+
+- The network established by softAP will have default IP address of 192.168.4.1. This address may be changed using softAPConfig (see below).
+Even though ESP8266 can operate in soft-AP + station mode, it actually has only one hardware channel. Therefore in soft-AP + station mode, the soft-AP channel will default to the number used by station. For more information how this may affect operation of stations connected to ESP8266’s soft-AP, please check this FAQ entry on Espressif forum.
+
+<br>
+[Documentation](https://arduino-esp8266.readthedocs.io/en/latest/esp8266wifi/soft-access-point-class.html)
