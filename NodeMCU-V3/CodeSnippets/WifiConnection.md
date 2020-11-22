@@ -68,7 +68,7 @@ void loop()
 <br>
 <br>
 
-## Soft Access Point
+## Soft Access Point or WiFi Mode (WIFI_AP)
 
 An access point (AP) is a device that provides access to a Wi-Fi network to other devices (stations) and connects them to a wired network. The ESP8266 can provide similar functionality, except it does not have interface to a wired network. Such mode of operation is called soft access point (soft-AP). The maximum number of stations that can simultaneously be connected to the soft-AP can be set from 0 to 8, but defaults to 4.
 
@@ -123,13 +123,7 @@ void configureSoftAP()
 
 void setup()
 {
-  // initialize LED digital pin as an output.
-  pinMode(LED_BUILTIN, OUTPUT);
-
   Serial.begin(115200);
-  // Serial.setDebugOutput(true);
-
-  //connectToNetwork(STASSID, STAPSK);
   configureSoftAP();
 }
 
@@ -140,7 +134,7 @@ void loop()
 ```
 
 
-## NodeMCU as AP and Statiom Simulateneously. (Uses 1)
+## NodeMCU as AP and Statiom Simulateneously. WIFI Mode (WIFI_AP_STA)
 
 ![](../..//resources/AP-Station-Mode.png)
 
@@ -211,29 +205,13 @@ void cofigureAP_Station(){
 
 void setup()
 {
-  // initialize LED digital pin as an output.
-  pinMode(LED_BUILTIN, OUTPUT);
-
   Serial.begin(115200);
-  // Serial.setDebugOutput(true);
-
-  // connectToNetwork(STASSID, STAPSK);
-  //configureSoftAP();
   cofigureAP_Station();
 }
 
 void loop()
 {
   Serial.printf("Stations connected = %d\n", WiFi.softAPgetStationNum());
-  
-  // turn the LED on (HIGH is the voltage level)
-  digitalWrite(LED_BUILTIN, HIGH);
-  // wait for a second
-  delay(1000);
-  // turn the LED off by making the voltage LOW
-  digitalWrite(LED_BUILTIN, LOW);
-  // wait for a second
-  delay(1000);
 }
 
 ```
