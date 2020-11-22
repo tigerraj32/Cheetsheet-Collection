@@ -112,6 +112,7 @@ void configureSoftAP()
   Serial.println(WiFi.softAPConfig(local_IP, gateway, subnet) ? "Ready" : "Failed!");
 
   Serial.print("Setting soft-AP ... ");
+  WiFi.mode(WIFI_AP);
   Serial.println(WiFi.softAP("NodeMCU_WIFI", "1234567890") ? "Ready" : "Failed!");
 
   Serial.print("Soft-AP IP address = ");
@@ -136,4 +137,101 @@ void loop()
 {
   Serial.printf("Stations connected = %d\n", WiFi.softAPgetStationNum()); // no of count connected to this ap.
 }
+```
+
+
+## NodeMCU as AP and Statiom Simulateneously. (Uses 1)
+
+```c++
+
+#include <Arduino.h>
+#include <ESP8266WiFi.h>
+
+#ifndef STASSID
+#define STASSID "aarop_wlink"
+#define STAPSK "Aa9808907D"
+#endif
+
+
+void configureSoftAP()
+{
+  IPAddress local_IP(192, 168, 4, 111);
+  IPAddress gateway(192, 168, 4, 1);
+  IPAddress subnet(255, 255, 255, 0);
+
+  Serial.print("Setting soft-AP configuration ... ");
+  Serial.println(WiFi.softAPConfig(local_IP, gateway, subnet) ? "Ready" : "Failed!");
+
+  Serial.print("Setting soft-AP ... ");
+  Serial.println(WiFi.softAP("NodeMCU_WIFI", "1234567890") ? "Ready" : "Failed!");
+
+  Serial.print("Soft-AP IP address = ");
+  Serial.println(WiFi.softAPIP());
+
+  
+}
+
+void connectToNetwork(char *ssid, char *password)
+{
+
+  Serial.println();
+  Serial.println();
+  Serial.println();
+
+  for (uint8_t t = 4; t > 0; t--)
+  {
+    Serial.printf("[Connecting] to %s Please wait %d...\n", ssid, t);
+    Serial.flush();
+    delay(1000);
+  }
+
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED)
+  {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("");
+  Serial.println("WiFi connected with following info");
+
+  Serial.printf(" Wifi SSID: %s\n Wifi PSK: %s\n Wifi AP MAC Address: %s\n RSSI: %d dBm\n", WiFi.SSID().c_str(), WiFi.psk().c_str(), WiFi.BSSIDstr().c_str(), WiFi.RSSI());
+  Serial.printf(" DNS #1: %s, DNS #2: %s\n", WiFi.dnsIP().toString().c_str(), WiFi.dnsIP(1).toString().c_str());
+  Serial.printf(" IP Address: %s\n Gataway IP: %s\n Subnet mask: %s\n", WiFi.localIP().toString().c_str(), WiFi.gatewayIP().toString().c_str(), WiFi.subnetMask().toString().c_str());
+};
+
+void cofigureAP_Station(){
+    WiFi.mode(WIFI_AP);
+    configureSoftAP();
+    connectToNetwork(STASSID, STAPSK);
+
+}
+
+
+void setup()
+{
+  // initialize LED digital pin as an output.
+  pinMode(LED_BUILTIN, OUTPUT);
+
+  Serial.begin(115200);
+  // Serial.setDebugOutput(true);
+
+  // connectToNetwork(STASSID, STAPSK);
+  //configureSoftAP();
+  cofigureAP_Station();
+}
+
+void loop()
+{
+  Serial.printf("Stations connected = %d\n", WiFi.softAPgetStationNum());
+  
+  // turn the LED on (HIGH is the voltage level)
+  digitalWrite(LED_BUILTIN, HIGH);
+  // wait for a second
+  delay(1000);
+  // turn the LED off by making the voltage LOW
+  digitalWrite(LED_BUILTIN, LOW);
+  // wait for a second
+  delay(1000);
+}
+
 ```
