@@ -142,6 +142,8 @@ void loop()
 
 ## NodeMCU as AP and Statiom Simulateneously. (Uses 1)
 
+[](../..//resources/AP-Station-Mode.png)
+
 ```c++
 
 #include <Arduino.h>
