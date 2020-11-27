@@ -2,36 +2,29 @@
 
 ## WiFi Mode : WIFI_STA (Station)
 
+<br>
+
+[Official Documentation](https://arduino-esp8266.readthedocs.io/en/latest/esp8266wifi/station-class.html)
+
+<br>
+
+
 Devices that connect to Wi-Fi networks are called stations (STA). Connection to Wi-Fi is provided by an access point (AP), that acts as a hub for one or more stations. The access point on the other end is connected to a wired network. An access point is usually integrated with a router to provide access from a Wi-Fi network to the internet. Each access point is recognized by a SSID (Service Set IDentifier), that essentially is the name of network you select when connecting a device (station) to the Wi-Fi.
 
 ESP8266 modules can operate as a station, so we can connect it to the Wi-Fi network.
 
+
 ![pinout_arduino_uno](../..//resources/WiFi-station-mode.png)
-<br>
-    [Documentation](https://arduino-esp8266.readthedocs.io/en/latest/esp8266wifi/station-class.html)
-<br>
+
+### Dynamic IP Mode
 
 ```c++
+#include <Arduino.h>
+#include <ESP8266WiFi.h>
+
 void connectToNetwork(char *ssid, char *password)
 {
-
-  Serial.println();
-  Serial.println();
-  Serial.println();
-
-  for (uint8_t t = 4; t > 0; t--)
-  {
-    Serial.printf("[Connecting] to %s Please wait %d...\n", ssid, t);
-    Serial.flush();
-    delay(1000);
-  }
-
-  //WiFi.mode(WIFI_STA); //configure as stations that connect to wifi-network (AP)
-
-  IPAddress staticIP(192, 168, 100, 161);
-  IPAddress gateway(192, 168, 100, 1);
-  IPAddress subnet(255, 255, 255, 0);
-  WiFi.config(staticIP, gateway, subnet);
+  WiFi.mode(WIFI_STA); //configure as stations that connect to wifi network.
 
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED)
@@ -64,6 +57,23 @@ void loop()
 
 ```
 
+### For Static IP
+
+We can use `Wifi.begin(ip, gateway, subnet, dns)`  to configure static ip for esp8266 wifi module. Add Following line of code before Wifi.begin()
+
+```c
+  ........
+
+  IPAddress local_IP(192, 168, 100, 111);
+  IPAddress gateway(192, 168, 100, 1);
+  IPAddress subnet(255, 255, 255, 0);
+  WiFi.config(local_IP, gateway, subnet);
+
+  WiFi.begin(ssid, password);
+
+  .....................
+```
+
 
 <br>
 <br>
@@ -91,7 +101,7 @@ Even though ESP8266 can operate in soft-AP + station mode, it actually has only 
 [Documentation](https://arduino-esp8266.readthedocs.io/en/latest/esp8266wifi/soft-access-point-class.html)
 
 
-### Sample Code
+### AP Mode in dynamic IP
 
 ```c++
 #include <Arduino.h>
@@ -104,37 +114,74 @@ Even though ESP8266 can operate in soft-AP + station mode, it actually has only 
 
 void configureSoftAP()
 {
-  IPAddress local_IP(192, 168, 4, 22);
-  IPAddress gateway(192, 168, 4, 9);
-  IPAddress subnet(255, 255, 255, 0);
-
-  Serial.print("Setting soft-AP configuration ... ");
-  Serial.println(WiFi.softAPConfig(local_IP, gateway, subnet) ? "Ready" : "Failed!");
-
-  Serial.print("Setting soft-AP ... ");
-  WiFi.mode(WIFI_AP);
-  Serial.println(WiFi.softAP("NodeMCU_WIFI", "1234567890") ? "Ready" : "Failed!");
-
-  Serial.print("Soft-AP IP address = ");
-  Serial.println(WiFi.softAPIP());
+    String ssid = "NodeMcuAP";
+    String psk = "1234567890";
+    Serial.print("Setting soft-AP configuration  with default IP ... ");
+    WiFi.mode(WIFI_AP);
+    if (WiFi.softAP(ssid, psk))
+    {
+        Serial.println("\n---------- Access Point created -----------");
+        Serial.printf("ssid: %s\t %s \n", ssid.c_str(), psk.c_str());
+        Serial.printf("IP Address: %s\t MAC Address: %s\n", WiFi.softAPIP().toString().c_str(), WiFi.softAPmacAddress().c_str());
+        Serial.println("------------------------------\n");
+    }
+    else
+    {
+        Serial.println("---------- Failed to create: Access Point -----------\n");
+    }
 }
-
-
 
 void setup()
 {
   Serial.begin(115200);
   configureSoftAP();
 }
+```
+
+### To get the number of stations connected with this AP
+
+```c++
 
 void loop()
 {
-  Serial.printf("Stations connected = %d\n", WiFi.softAPgetStationNum()); // no of count connected to this ap.
+  // no of count connected to this ap.
+  Serial.printf("Stations connected = %d\n", WiFi.softAPgetStationNum()); 
+}
+
+```
+
+### To configure  static IP for AP Mode
+
+```c++
+void configureSoftAP()
+{
+    String ssid = "NodeMcuAP";
+    String psk = "1234567890";
+    
+    IPAddress local_IP(192, 168, 4, 111);
+    IPAddress gateway(192, 168, 4, 1);
+    IPAddress subnet(255, 255, 255, 0);
+
+    Serial.print("Setting soft-AP configuration  with static IP ... ");
+    WiFi.mode(WIFI_AP);
+    if (WiFi.softAPConfig(local_IP, gateway, subnet))
+    {
+        Serial.println("\n---------- Access Point created -----------");
+        Serial.printf("ssid: %s\t %s \n", ssid.c_str(), psk.c_str());
+        Serial.printf("IP Address: %s\t MAC Address: %s\n", WiFi.softAPIP().toString().c_str(), WiFi.softAPmacAddress().c_str());
+        Serial.println("------------------------------\n");
+    }
+    else
+    {
+        Serial.println("---------- Failed to create: Access Point -----------\n");
+    }
 }
 ```
 
 
 ## NodeMCU as AP and Statiom Simulateneously. WIFI Mode (WIFI_AP_STA)
+
+In this mode node mcu in AP Mode can be use to configure the configuration parameter in private mode. Where as station mode can be use as client to connect to internet to make api calls or socket conections. 
 
 ![](../..//resources/AP-Station-Mode.png)
 
@@ -143,66 +190,13 @@ void loop()
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
 
-#ifndef STASSID
-#define STASSID "aarop_wlink"
-#define STAPSK "Aa9808907D"
-#endif
-
-
-void configureSoftAP()
-{
-  IPAddress local_IP(192, 168, 4, 111);
-  IPAddress gateway(192, 168, 4, 1);
-  IPAddress subnet(255, 255, 255, 0);
-
-  Serial.print("Setting soft-AP configuration ... ");
-  Serial.println(WiFi.softAPConfig(local_IP, gateway, subnet) ? "Ready" : "Failed!");
-
-  Serial.print("Setting soft-AP ... ");
-  Serial.println(WiFi.softAP("NodeMCU_WIFI", "1234567890") ? "Ready" : "Failed!");
-
-  Serial.print("Soft-AP IP address = ");
-  Serial.println(WiFi.softAPIP());
-
-  
-}
-
-void connectToNetwork(char *ssid, char *password)
-{
-
-  Serial.println();
-  Serial.println();
-  Serial.println();
-
-  for (uint8_t t = 4; t > 0; t--)
-  {
-    Serial.printf("[Connecting] to %s Please wait %d...\n", ssid, t);
-    Serial.flush();
-    delay(1000);
-  }
-
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED)
-  {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println("");
-  Serial.println("WiFi connected with following info");
-
-  Serial.printf(" Wifi SSID: %s\n Wifi PSK: %s\n Wifi AP MAC Address: %s\n RSSI: %d dBm\n", WiFi.SSID().c_str(), WiFi.psk().c_str(), WiFi.BSSIDstr().c_str(), WiFi.RSSI());
-  Serial.printf(" DNS #1: %s, DNS #2: %s\n", WiFi.dnsIP().toString().c_str(), WiFi.dnsIP(1).toString().c_str());
-  Serial.printf(" IP Address: %s\n Gataway IP: %s\n Subnet mask: %s\n", WiFi.localIP().toString().c_str(), WiFi.gatewayIP().toString().c_str(), WiFi.subnetMask().toString().c_str());
-};
 
 void cofigureAP_Station(){
-    WiFi.mode(WIFI_AP);
-    configureSoftAP();
-    connectToNetwork(STASSID, STAPSK);
+    WiFi.mode(WIFI_AP_STA);
+    configureSoftAP(); //for ap mode as above
+    connectToNetwork(STASSID, STAPSK); //for station mode as above.
 
 }
-
-
 void setup()
 {
   Serial.begin(115200);
