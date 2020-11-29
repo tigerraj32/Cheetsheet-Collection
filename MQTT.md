@@ -17,7 +17,7 @@ over the TCP/IP. It is desiggn for bidirectional connection between remotely pla
 
 
 
-### Some of the key features of MQTT 
+## Some of the key features of MQTT 
 
 ### Lightweight and Efficient
 
@@ -43,3 +43,35 @@ Many IoT devices connect over unreliable cellular networks. MQTT’s support for
 
 MQTT makes it easy to encrypt messages using TLS and authenticate clients using modern authentication protocols, such as OAuth.
 
+
+# (MQTT Broker)
+
+There are lots of MQTT Broker available, but we are going to use `Eclipse Mosquitto`. 
+
+<br>
+
+[Official Documents](https://mosquitto.org)
+
+Eclipse Mosquitto is an open source (EPL/EDL licensed) message broker that implements the MQTT protocol versions 5.0, 3.1.1 and 3.1. Mosquitto is lightweight and is suitable for use on all devices from low power single board computers to full servers.
+
+The MQTT protocol provides a lightweight method of carrying out messaging using a publish/subscribe model. This makes it suitable for Internet of Things messaging such as with low power sensors or mobile devices such as phones, embedded computers or microcontrollers.
+
+The Mosquitto project also provides a C library for implementing MQTT clients, and the very popular mosquitto_pub and mosquitto_sub command line MQTT clients.
+
+
+### Installation
+
+<br>
+For Mac OSX 
+
+    brew install mosquitto
+
+Start MQTT broker on lunch
+
+    brew services start mosquitto
+
+ Restart / stop MQTT Broker   
+
+    brew services restart mosquitto
+    
+    brew services stop mosquitto
