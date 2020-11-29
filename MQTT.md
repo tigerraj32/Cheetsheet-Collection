@@ -154,7 +154,21 @@ In mac you will need to copy the password file `auth.txt` to the directory where
 
 From now on we need to use username and password to be able to connect to MQTT Broker. Otherwise we will get `Error: Connection refused`
 
+     //To subscribe
      mosquitto_sub -h localhost -u "rajan" -P "password123"  -t "greetings"
+
+     //To Publish
+     mosquitto_pub -h localhost -t "greetings" -m "Hello World MQTT" -u rajan -P password123  -d
 
 ## MQTT Retain
 
+Normally if a publisher publishes a message to a topic, and no one is subscribed to that topic the message is simply discarded by the broker.
+However the publisher can tell the broker to keep the last message on that topic by setting the retained message flag. 
+
+Without retained messages the subscriber would have to wait for the status to change before it received a message. However with the retained message the subscriber would see the current state of the sensor. What is important to understand is that only one message is retained per topic.
+
+     mosquitto_pub -h localhost -t "greetings" -m "Hello World MQTT" -u rajan -P password123  -d -r 
+
+Here `-r` speficy tells the broker to retain the message.
+
+![](resources/mqtt.retain.gif)
