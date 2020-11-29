@@ -73,5 +73,25 @@ Start MQTT broker on lunch
  Restart / stop MQTT Broker   
 
     brew services restart mosquitto
-    
+
     brew services stop mosquitto
+
+MQTT Configuration file
+
+    cd /usr/local/etc/mosquitto/mosquitto.conf 
+
+
+ ### Subscribe to Topic 
+
+    mosquitto_sub -h [host] - t [topic]   
+
+    mosquitto_sub -h localhost - t greeetings   
+
+
+ ### Publish to Topic
+
+    mosquitto_pub -h [host] - t [topic] -m [message]
+
+    mosquitto_pub -h localhost - t greeetings -m "Hello world MQTT"
+
+![](resources/sample.mqtt.sub.pub.png)
