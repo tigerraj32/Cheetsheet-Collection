@@ -78,6 +78,39 @@ We can use `Wifi.begin(ip, gateway, subnet, dns)`  to configure static ip for es
 <br>
 <br>
 
+### Connecting to strongest wifi network. 
+
+It is posssible provide multiple wifi configuration and connect to strongest one via esp8266 module. We can use `ESP8266WiFiMulti` for this.
+
+```c++
+
+void setup(){
+
+//create an instance of ESP8266WiFiMulti 
+  ESP8266WiFiMulti wifiMulti;
+  
+  // add Wi-Fi networks you want to connect to
+  wifiMulti.addAP("ssid_from_AP_1", "your_password_for_AP_1");  
+  wifiMulti.addAP("ssid_from_AP_2", "your_password_for_AP_2");
+  wifiMulti.addAP("ssid_from_AP_3", "your_password_for_AP_3");
+  
+  Serial.println("Connecting ...");
+  int i = 0;
+  while (wifiMulti.run() != WL_CONNECTED) { // Wait for the Wi-Fi to connect: scan for Wi-Fi networks, and connect to the strongest of the networks above
+    delay(250);
+    Serial.print('.');
+  }
+  Serial.println('\n');
+  Serial.print("Connected to ");
+  Serial.println(WiFi.SSID());              // Tell us what network we're connected to
+  Serial.print("IP address:\t");
+  Serial.println(WiFi.localIP());  
+  
+}
+```
+
+
+
 ## Soft Access Point or WiFi Mode (WIFI_AP)
 
 An access point (AP) is a device that provides access to a Wi-Fi network to other devices (stations) and connects them to a wired network. The ESP8266 can provide similar functionality, except it does not have interface to a wired network. Such mode of operation is called soft access point (soft-AP). The maximum number of stations that can simultaneously be connected to the soft-AP can be set from 0 to 8, but defaults to 4.
