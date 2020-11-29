@@ -4,7 +4,7 @@
 over the TCP/IP. It is desiggn for bidirectional connection between remotely placed device 
 (specialy used for iOT devices) with  `small code footprint`.
 
-## MQTT Architect
+## MQTT Architecture
 
 ### MQTT consist of 4 key components
 - MQTT Client: An MQTT client is any device (from a micro controller up to a full-fledged server) that runs an MQTT library and connects to an MQTT broker over a network. MQTT client can be Publisher or Subscriber.
@@ -17,7 +17,7 @@ over the TCP/IP. It is desiggn for bidirectional connection between remotely pla
 
 
 
-Some of the key features of MQTT 
+### Some of the key features of MQTT 
 
 ### Lightweight and Efficient
 
