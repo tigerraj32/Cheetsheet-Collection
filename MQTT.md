@@ -1,7 +1,7 @@
 # Message Queuing Telemetry Transport (MQTT)
 
 `MQTT` is extremely lightweight `pubish subscribe` messaging protocol  that transport message between device 
-over the TCP/IP. It is desiggn for bidirectional connection between remotely placed device 
+over the TCP/IP that run over `port 1883 for plain MQTT and 8883 for MQTT over TLS`. It is desiggn for bidirectional connection between remotely placed device 
 (specialy used for iOT devices) with  `small code footprint`.
 
 ## MQTT Architecture
@@ -83,7 +83,7 @@ MQTT Configuration file
 
  ### Subscribe to Topic 
 
-    mosquitto_sub -h [host] - t [topic]   
+    mosquitto_sub -h [host] - t [topic]  
 
     mosquitto_sub -h localhost - t greeetings   
 
@@ -95,3 +95,58 @@ MQTT Configuration file
     mosquitto_pub -h localhost - t greeetings -m "Hello world MQTT"
 
 ![](resources/sample.mqtt.sub.pub.png)
+
+### Debug MQTT Publisher
+
+We can use `-d` flag to see the debug message while sending the mqtt message
+
+    mosquitto_pub -h localhost - t greeetings -m "Hello world MQTT" -d
+
+    //Debug message
+    Client mosq-ZaL9mzWA7K78ubUN2a sending CONNECT
+    Client mosq-ZaL9mzWA7K78ubUN2a received CONNACK (0)
+    Client mosq-ZaL9mzWA7K78ubUN2a sending PUBLISH (d0, q0, r0, m1, 'greetings', ... (16 bytes))
+    Client mosq-ZaL9mzWA7K78ubUN2a sending DISCONNECT
+
+
+
+## MQTT Authentication
+
+By default mqtt broke allow anonymous user to receive the message being published. These settings are configured in `mosquitto.cong` as
+
+> allow_anonymous true
+
+But Mosquitto broker can be configured to allow client authentication using username and password before connection is performed. The username and password is transmitted in plain text unless we use secure transport encryption.
+
+**Configuring user authentication**
+
+[Refrence Resources](http://www.steves-internet-guide.com/mqtt-username-password-example/)
+
+- Method 1: From text file.
+  - Create a file **auth.txt** 
+    - `nano auth.txt`
+  - Enter username and password seperated by colon. 
+    - `rajan:password123`
+  - To create additional user enter username and password in new line.
+  - Now encrypt the auth.txt file before we actually use it with `mosquitto_passwd` utility
+    - `mosquitto_passwd -U auth.txt`
+    - This will update the plain text auth.txt and encrypt the password
+    - `rajan:$6$dtMF49Z2e8YSrYEY$1nAtPhU4V+d8dj/3glka5H7VrQBf/IZ2WFhJDQI5CGpbK6soFrwk0cciOf0pioSvkTsiZ9rD24pOZTPpYxq1Kg==`
+
+- Method 2: Direct Method.
+  - Use mosquitto_passwd to  generate encrypted username and password file
+    - `mosquitto_passwd -c auth.text rajan`
+    - This will create  a auth.txt file with username = rajan and ask for pasword to enter.
+
+
+## Using the Password file
+
+In mac you will need to copy the password file `auth.txt` to the directory where `mosquitto.conf` exists. Normaly it under `/usr/local/etc/mosquitto`. We then need to change two setting in mosquitto.conf file. 
+
+- Don't allow anonymous to connect
+  - `allow_anonymous false`
+- Set the password file to use auth.txt
+  - `password_file auth.txt`
+- and restart the mqtt broker
+  - `brew services restart mosquitto`
+
