@@ -146,7 +146,15 @@ In mac you will need to copy the password file `auth.txt` to the directory where
 - Don't allow anonymous to connect
   - `allow_anonymous false`
 - Set the password file to use auth.txt
-  - `password_file auth.txt`
+  - `password_file /usr/local/etc/mosquitto/auth.txt`
 - and restart the mqtt broker
   - `brew services restart mosquitto`
+
+### Authentiation for Subscription
+
+From now on we need to use username and password to be able to connect to MQTT Broker. Otherwise we will get `Error: Connection refused`
+
+     mosquitto_sub -h localhost -u "rajan" -P "password123"  -t "greetings"
+
+## MQTT Retain
 
