@@ -162,6 +162,9 @@ From now on we need to use username and password to be able to connect to MQTT B
 
 ## MQTT Retain
 
+[Refrence Document](http://www.steves-internet-guide.com/mqtt-retained-messages-example/)
+
+
 Normally if a publisher publishes a message to a topic, and no one is subscribed to that topic the message is simply discarded by the broker.
 However the publisher can tell the broker to keep the last message on that topic by setting the retained message flag. 
 
@@ -172,3 +175,9 @@ Without retained messages the subscriber would have to wait for the status to ch
 Here `-r` speficy tells the broker to retain the message.
 
 ![](resources/mqtt.retain.gif)
+
+
+## MQTT SSL/TLS Security
+
+[Refrence Resource](http://www.steves-internet-guide.com/mosquitto-tls/)
+[Refrence Resource](https://support.asplhosting.com/t/how-to-send-and-receive-messages-with-mosquitto-sub-and-mosquitto-pub-to-myqtthub-com/34)
