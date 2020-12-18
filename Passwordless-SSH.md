@@ -26,3 +26,12 @@ On your local machine terminal type:
     ssh-copy-id remote_username@server_ip_address   
 
 
+## Login to your server using SSH keys
+
+After completing the steps above you should be able log in to the remote server without being prompted for a password.
+
+To test it just try to login to your server via SSH:
+
+        ssh remote_username@server_ip_address
+        
+       
