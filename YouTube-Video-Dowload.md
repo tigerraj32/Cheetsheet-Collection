@@ -54,6 +54,19 @@ Now to download the video
     $ pytube https://www.youtube.com/watch?v=HhD29dmSgNE --itag=248
     
     
+You may noticed that some streams have both video codec and audio codec, while other have just video or just audio codec. 
+This is a result of YouTube supporting a streaming technique called Dynamic Adaptive Streaming over HTTP (DASH).  
+
+To download both audio and video  and merge them to produce desired output will need `ffmpefg` 
+
+        $ brew install ffmpeg
+        
+        $ pip install ffmpeg-python -- python wrapper of ggmpeg
+        
+        -- finally  
+        $ pytube https://www.youtube.com/watch?v=BFZCUD7qL24  -f
+        
+    
 # Download YouTube videos:  `vlc player`
 
 - open vlc player
