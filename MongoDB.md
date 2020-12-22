@@ -37,23 +37,26 @@
 
 ### Create
 
+**Insert one record**
+
 Since mongodb is schema less we can create following records with no problem. 
 Upon creation of record `_id` is automatically created with each record
 
-Insert one record
-
     db.user.insertOne({name:"Rajesh", age: 33})
-    db.user.insertOne({name:"Rajan", age: 32, address: "Kathmandu Nepal"})
+    db.user.insertOne({name:"Rajan", age: 32, address: "Kathmandu Nepal"}) 
     
-Insert multiple record
+**Insert multiple record**
 
-    db.user.insert([{name:"gita"}, {name:'rama"}])
+    db.user.insert([{name:"gita"}, {name:'rama"}]) -- ordered bulk insert
+    db.user.insert([{name:"11"}, {name:"444"}, {name: "435"}], {ordered: false})
 
 
+###  Read
 
-### 
-### 
-
-### 
-
-### 
+    db.user.find() -- get all records from user collection
+    db.user.find().pretty() -- get all records from user collection in json format
+    db.user.findOne() -- get one record only
+    
+   
+   
+ [More about the mangoDB](https://developer.mongodb.com/quickstart/cheat-sheet)
