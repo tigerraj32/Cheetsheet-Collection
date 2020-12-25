@@ -90,9 +90,9 @@ MQTT Configuration file
 
  ### Publish to Topic
 
-    mosquitto_pub -h [host] - t [topic] -m [message]
+    mosquitto_pub -h [host] -t [topic] -m [message]
 
-    mosquitto_pub -h localhost - t greeetings -m "Hello world MQTT"
+    mosquitto_pub -h localhost -t greeetings -m "Hello world MQTT"
 
 ![](resources/sample.mqtt.sub.pub.png)
 
@@ -100,7 +100,7 @@ MQTT Configuration file
 
 We can use `-d` flag to see the debug message while sending the mqtt message
 
-    mosquitto_pub -h localhost - t greeetings -m "Hello world MQTT" -d
+    mosquitto_pub -h localhost -t greeetings -m "Hello world MQTT" -d
 
     //Debug message
     Client mosq-ZaL9mzWA7K78ubUN2a sending CONNECT
