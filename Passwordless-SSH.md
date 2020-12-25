@@ -35,3 +35,5 @@ To test it just try to login to your server via SSH:
         ssh remote_username@server_ip_address
         
        
+
+![](resources/ssl-pass.png)
