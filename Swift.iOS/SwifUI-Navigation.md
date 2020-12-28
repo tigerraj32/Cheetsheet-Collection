@@ -38,6 +38,132 @@ To customize tile size  **.navigationBarTitle** can take  **displayMode** as arg
 .navigationBarTitle("Navigation", displayMode: .inline)
 ```
 
+## Customize nagigation bar and  title (color)
+[Refrence Docs](https://schwiftyui.com/swiftui/customizing-your-navigationviews-bar-in-swiftui/)
+
+For now ther no direct support to customize navigation bar and title in SwiftUI. But, there are multiple ways to customize navigation bar and title.
+
+### Globally change the navigation bar and title color
+
+Since we are using the `UINavigationBar` apparance this will globally change the navigation views.
+
+```swift
+struct ContentView: View {
+    init() {
+        UINavigationBar.appearance().backgroundColor = .blue
+    }
+    
+    var body: some View {
+        NavigationView {
+            NavigationLink(destination:
+                Text("First detail")) {
+                    Text("Go to first detail")
+            }
+        }
+    }
+}
+```
+
+### Change navigation bar per view
+
+We can change the appareance of NavigationBar in `onAppear` of each view to give color of navigation bar for each view
+
+```swift 
+
+struct FirstTabView: View {
+    var body: some View {
+        NavigationView {
+            Text("First detail")
+        }
+        .onAppear {
+            UINavigationBar.appearance().backgroundColor = .green
+        }
+    }
+}
+
+struct SecondTabView: View {
+    var body: some View {
+        NavigationView {
+            Text("Second detail")
+        }
+        .onAppear {
+            UINavigationBar.appearance().backgroundColor = .blue
+        }
+    }
+        
+}
+
+```
+
+If we want to apply changes before the view load then we can maake it in 'viewDidLoad`
+
+```swift
+extension UINavigationController {
+    override open func viewDidLoad() {
+        super.viewDidLoad()
+
+        let standardAppearance = UINavigationBarAppearance()
+        standardAppearance.backgroundColor = .red
+
+        let compactAppearance = UINavigationBarAppearance()
+        compactAppearance.backgroundColor = .green
+
+        let scrollEdgeAppearance = UINavigationBarAppearance()
+        scrollEdgeAppearance.backgroundColor = .blue
+
+        navigationBar.standardAppearance = standardAppearance
+        navigationBar.compactAppearance = compactAppearance
+        navigationBar.scrollEdgeAppearance = scrollEdgeAppearance
+    }
+}
+```
+
+### Resuable modifier to  apply changes to navigation bar and title 
+
+Create new file `NavigationBarColorModifier`
+
+```swift
+import SwiftUI
+import UIKit
+
+struct NavigationBarColorModifier: ViewModifier {
+    init(backgroundColor: UIColor, tintColor: UIColor) {
+        let coloredAppearance = UINavigationBarAppearance()
+        coloredAppearance.configureWithOpaqueBackground()
+        coloredAppearance.backgroundColor = backgroundColor
+        coloredAppearance.titleTextAttributes = [.foregroundColor: tintColor]
+        coloredAppearance.largeTitleTextAttributes = [.foregroundColor: tintColor]
+                       
+        UINavigationBar.appearance().standardAppearance = coloredAppearance
+        UINavigationBar.appearance().scrollEdgeAppearance = coloredAppearance
+        UINavigationBar.appearance().compactAppearance = coloredAppearance
+        UINavigationBar.appearance().tintColor = tintColor
+      }
+    
+    func body(content: Content) -> some View {
+        content
+      }
+
+}
+
+
+extension View {
+  func navigationBarColor(backgroundColor: UIColor, tintColor: UIColor) -> some View {
+    self.modifier(NavigationBarColorModifier(backgroundColor: backgroundColor, tintColor: tintColor))
+  }
+}
+
+```
+
+Now we can apply modifier as below
+
+```swift 
+NavigationView {
+            Text("First detail")
+        }
+        .navigationBarColor(backgroundColor: .blue, tintColor: .white)
+```
+
 ## Navigatoin Link
 
 Navigation link is the way to link to new view. The **move to next view ** is automatically marked blue to mark  we can interact it link link.
