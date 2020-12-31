@@ -42,3 +42,5 @@ struct SampleVew1: View {
     }
 }
 ```
+
+![](./../resources/nsfw.png)
