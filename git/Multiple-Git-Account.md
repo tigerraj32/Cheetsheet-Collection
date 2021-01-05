@@ -56,9 +56,11 @@ To use the keys, we have to register them with the ssh-agent on our machine. Ens
 Add the keys to the ssh-agent like so:
 
 ```
-ssh-add ~/.ssh/id_rsa
-ssh-add ~/.ssh/id_rsa_work1
+ssh-add -K ~/.ssh/id_rsa
+ssh-add -K ~/.ssh/id_rsa_work1
 ```
+
+Here `-K` will tell OS to store passphrase in keuchain if set while creating private key. Else it will not prompt for password.
 
 To list the ssh key attached to SSH agent
 > ssh-add -l
@@ -84,12 +86,16 @@ Make configuration entries for the relevant GitHub accounts similar to the one b
 Host github.com
    HostName github.com
    User git
+   UseKeychain yes
+   AddKeysToAgent yes
    IdentityFile ~/.ssh/id_rsa
    
 # Work account-1
 Host github.com-work1 
    HostName github.com
    User git
+   UseKeychain yes
+   AddKeysToAgent yes
    IdentityFile ~/.ssh/id_rsa_work1
 ```
 
@@ -100,6 +106,19 @@ The above configuration asks ssh-agent to:
 
 
 ## Ttying it out
+
+Before we actually use the ssh connection we can test if every thing is ok with following command
+
+> ssh -T git@{HOST}
+	
+	ssh -T git@github.com  //for normal user
+	ssh -T git@github.com-work1 //for work1 email
+
+If every thing is ok we will get response like below
+
+	Hi username! You've successfully authenticated, but GitHub does not provide shell access.
+
+
 
 ### Create new repo
 
