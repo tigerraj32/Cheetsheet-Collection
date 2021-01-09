@@ -1,5 +1,5 @@
 
-Node.js `Mongoose` os a MongoDN object Modeling tool designed to work in an asynchronos enviroent.
+Node.js `Mongoose` os a MongoDB object Modeling tool designed to work in an asynchronos enviroent.
 
 
 ## Installation
