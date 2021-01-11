@@ -115,4 +115,67 @@ export default function Counter() {
 }
 ```
 
+## Types of State Variable
+
+- State can take following variable to work with
+  - boolean
+  - string
+  - number
+  - array
+  - object
+
+
+Examples
+
+```javascript 
+const [count, setCount] = useState(0)
+const [color, setColor] = useState('#526b2d')
+const [isHidden, setIsHidden] = useState(true)
+const [products, setProducts] = useState([])
+const [user, setUser] = useState({
+    username: '',
+    avatar: '',
+    email: '',
+})
+```
+
+## Updating State Variable
+
+For Array
+```javascript
+onst [items, setItems] = useState([])
+
+// Completely replaces whatever was stored in the items array
+setItems([{item1}, {item2}])
+
+// Instead, make a copy of the array then add your new item onto the end
+setItems([...items, {item3}])
+
+// To update an item in the array use .map. 
+// Assumes each array item is an object with an id.
+setItems(
+  items.map((item, index) => {
+    item.id === id ? newItem : item
+  })
+)
+```
+
+
+For Object
+
+```javascript
+
+const [person, setPerson] = useState({
+    firstName: 'rajan',
+    lastName: 'twn'
+  });
+
+   const updatePerson = (e) => {
+    setPerson({
+      ...person,
+      {person.firstName, person.lastName: "twanabashu"}
+    });
+  };
+```
+
 [Refrence Link] (https://www.youtube.com/watch?v=O6P86uwfdR0&list=PLZlA0Gpn_vH8EtggFGERCwMY5u5hOjf-h&index=1)
