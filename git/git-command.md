@@ -84,5 +84,14 @@ Or save to new file
         git show <commit_hash>:/path/file
         
         
+## Git ignore commited files
+
+- Edit the .gitignore file and add the the file path you want to ignore.
+- git rm --cached /path/to/file.  -- if no path is specified all the files will be deleted from git 
+- git add .
+- git commit 
+- git push 
+        
+        
          
          
