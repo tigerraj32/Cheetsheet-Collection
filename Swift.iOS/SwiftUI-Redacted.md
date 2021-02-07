@@ -18,7 +18,7 @@ Text("Rajan Twanabash")
                     .fontWeight(.bold)
                     .redacted(reason: .placeholder)
 ```
-![](../resources/redactd)
+![](../resources/redacted.png)
 
 If we need to `unredacted` to specific view then we can use **unredacted()**
 
@@ -83,3 +83,4 @@ Complete sample code that demonstrate data loading after 3 seconds
         }
     }
   ```
+![videogif](../resources/redacted.gif)
