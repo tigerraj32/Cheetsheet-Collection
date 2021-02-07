@@ -18,7 +18,7 @@ Text("Rajan Twanabash")
                     .fontWeight(.bold)
                     .redacted(reason: .placeholder)
 ```
-![]()
+![](../resources/redactd)
 
 If we need to `unredacted` to specific view then we can use **unredacted()**
 
