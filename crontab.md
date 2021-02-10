@@ -23,6 +23,21 @@ If you use * then it means every minute , hour, day, month or weekdsya
 
     crontab -e
 
+To open in nano editor
+
+    env EDITOR=nano crontab  -e
+
+## Before config the crontab file
+The macOS Mojave 10.14.0 release introduces some updates to the Apple user-centric inter-app data-sharing security model. After that user has to give access to cron to the calendar and certain directories, otherwise the crontab command will result in error message shown in the subtitle.
+
+- Step 1: Go to System Preferences > Security & Privacy > Privacy > Full Disk Access:
+- Step 2: Click on the (+) icon to add an item to the list:
+- Step 3: Press command+shift+G then type /usr/sbin/cron and Enter, you can find cron in finder:
+- Step 4: Select the cron file and click Open:
+
+
+## Examples
+
 Following are some of sample job scheduling via `crontab`
 
 Command | Description
