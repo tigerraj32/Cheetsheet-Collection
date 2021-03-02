@@ -44,3 +44,5 @@ struct SampleView: View {
     }
 }
 ```
+
+![](../resources/match_geomerty_effect.gif)
