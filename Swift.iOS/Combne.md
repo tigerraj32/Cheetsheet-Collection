@@ -32,6 +32,8 @@ Combine declares publishers to expose values that can change over time, and subs
   
   ```swift
    var subscripton = Timer.publish(every: 1, on: .main, in: .common)
+   .autoconnect()
+   .print("Streams")
    
    ```
    
