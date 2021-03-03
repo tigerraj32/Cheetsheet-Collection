@@ -16,3 +16,14 @@ Combine declares publishers to expose values that can change over time, and subs
 ### Basic intro to combine framework.
   
   ![](../resources/combine_intro.png)
+
+  
+  In above example we are demonstrating a 
+  
+  - Timer publisher that publish a value each 10 ms.
+  - Publisher operator that receives each streams of input and modifies, then republish the modified values
+  - And finally a subscriber that receives the stream of input.
+ 
+ Lets breakdown the above example in more simple way
+ 
+ > Step1
