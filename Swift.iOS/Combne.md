@@ -13,6 +13,6 @@ Combine declares publishers to expose values that can change over time, and subs
   A Subscriber instance receives a stream of elements from a Publisher.
   
   
-  ### Basic intro to combine framework.
+### Basic intro to combine framework.
   
-  ![](../resources/intro_combine.png)
+  ![](../resources/combine_intro.png)
