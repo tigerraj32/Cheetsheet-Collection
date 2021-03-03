@@ -26,4 +26,35 @@ Combine declares publishers to expose values that can change over time, and subs
  
  Lets breakdown the above example in more simple way
  
- > Step1
+ **Step 1**
+ 
+ Let's create a publisher that publish values every second in main loop.
+  
+  ```swift
+   var subscripton = Timer.publish(every: 1, on: .main, in: .common)
+   
+   ```
+   
+**Step 2**
+
+Now let's create a subscriber that subscribe to published values. Here we use sink as a subscriber. 
+
+```swift
+ var subscripton = Timer.publish(every: 1, on: .main, in: .common)
+   .sink { (output) in
+        print("finished stream with output \(output)")
+    } receiveValue: { (value) in
+        print("Received Value: \(value)")
+    }
+```
+After this we will periodically receive the values every 1 second. `sink` have two completion handler. First one will executed when the subscription ends. 
+Second one will execute every time the subscriber receives the new values. If you wish to publish the value for limited amount of time say for first 20 second then we can schedule the runloop to do so.
+
+```swift
+RunLoop.main.schedule(after: .init(Date(timeIntervalSinceNow: 25))) {
+    print("---- Cancel -----")
+    subscripton.cancel()
+}
+```
+
+
