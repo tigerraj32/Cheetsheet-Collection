@@ -11,7 +11,7 @@ SwiftUI provides three property wrapper designed to store and retrive data
 
 ## @AppStorage
 
-`@AppStorage is a property wrapper which is wrapped around `UserDefaults` for reading and writing data from and into the `UserDefaults`.  Every app has it own `@AppStorage` that can be accessed by any view within that application.This wrapper effectively watches a key in 'UserDefaults` and refreshed the view when 
+`@AppStorage` is a property wrapper which is wrapped around `UserDefaults` for reading and writing data from and into the `UserDefaults`.  Every app has it own `@AppStorage` that can be accessed by any view within that application.This wrapper effectively watches a key in 'UserDefaults` and refreshed the view when 
 that key is changed. You can take `@AppStorage` as `@State` which persist its data.
 
 ### Syntax
