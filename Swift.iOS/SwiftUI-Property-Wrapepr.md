@@ -65,10 +65,25 @@ struct SecondView: View {
 }
 ```
 
+### Sharing data between application with @AppStorage
 
-By default `@AppStorage` will watch 'UserDefaults.standard`, but you can make it watch particylar app grouo.
+By default `@AppStorage` will watch `UserDefaults.standard`, but you can make it watch particular app group that allows us to share data between apps and app extension.  We do this by providing out own `UserDefault Store`. For this we need to create UserDefault with `suit name`
 
-## 
+```swift
+struct RootView: View {
+    @AppStorage(
+        "text",
+        store: UserDefaults(suiteName: "group.yourapp.com")
+    )
+    private var text: String = ""
+    
+    var body: some View {
+        TextEditor(text: $text)
+            .padding()
+    }
+}
+```
+
 
 ## @Namespace
 
