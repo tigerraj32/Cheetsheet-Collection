@@ -70,3 +70,7 @@ Now monitor using foollowing command
     tail -f /var/log/job_log.txt
     
 
+### Tips
+
+
+
