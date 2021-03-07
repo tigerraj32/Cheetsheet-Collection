@@ -46,9 +46,13 @@ Previously we used `@ObservedObject` to get the same result, but this method res
 
 **Result 1: Using @ObservedObject**
 
+In this example we use `ObservedObject` to get same result but counter is destroyed and re-initialize whenever the parent state changes. 
+
 ![](../../resources/observed_object.gif)
 
 
 **Result 1: Using @StateObject**
+
+In this example the counter value  maintain its states even the parent views state is changed.
 
 ![](../../resources/state_object.gif)
