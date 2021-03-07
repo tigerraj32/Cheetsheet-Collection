@@ -65,3 +65,8 @@ Limit the number of lines for your text with the lineLimit modifier. Overflowing
 Add more space between the lines with the lineSpacing modifier.
 
 	.lineSpacing(10)
+
+
+### Refrence
+
+[](https://designcode.io/swiftui-handbook-text-view)
