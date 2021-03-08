@@ -29,7 +29,10 @@ enum AlertType: Identifiable {
         case .oneButton(title: let title, message: let message, dismissButton: let dismissButton):
             return Alert(title: Text(title), message: message != nil ? Text(message!) : nil, dismissButton: dismissButton)
         case .twoButton(title: let title, message: let message, primaryButton: let primaryButton, secondaryButton: let secondaryButton):
-            return Alert(title: Text(title), message: message != nil ? Text(message!) : nil, primaryButton: primaryButton, secondaryButton: secondaryButton)
+            return Alert(title: Text(title), 
+                         message: message != nil ? Text(message!) : nil, 
+                         primaryButton: primaryButton, s
+                         econdaryButton: secondaryButton)
         }
     }
 }
