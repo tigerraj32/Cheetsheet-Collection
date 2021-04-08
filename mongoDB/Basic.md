@@ -20,11 +20,14 @@ The following table presents the various SQL terminology and concepts and the co
 
 ### List available database
 
-    --SQL Version--
+>SQL Version
+
     show databases
 
-    --MondbDB Version--
+>MondbDB Version
+
     show dbs
+
 
 
 
