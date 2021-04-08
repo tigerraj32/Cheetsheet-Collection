@@ -18,37 +18,16 @@ The following table presents the various SQL terminology and concepts and the co
 
 # SQL vs MongoDB Query
 
-## List available database
+>List available database
 
->SQL Version
+```sql
+/*SQL Version*/
+show database
 
-    show databases
+/*MongoDB*/
+show dbs
+```
 
->MondbDB Version
-
-    show dbs
-
-
-## Select specific database
-
->SQL Version
-
-    use {database name}
-
->MondbDB Version
-
-    use {database name}
-
-
-## Select specific database
-
->SQL Version
-
-    use {database name}
-
->MondbDB Version
-
-    use {database name}
 
 >Show current database
 
