@@ -176,13 +176,24 @@ await User.find({})
 ```js
 /*SQL*/
 select * from user where name="rajan"
+//user that match id
+select * from user where sn = 1
+//find only record if have multiple record
+select top 1 * from user
 
 /*MongoDB*/
 db.user.find({name:"rajan"})
+//user that match id
+db.find({_id: ObjectId("606587b365cc824c45cccafd")})
+//find only record if have multiple match
+db.user.findOne({gender:'male'})
 
 /*Mongoose*/
 await User.find({name:"rajan"})
-
+//user that match id
+await User.find({_id:"606587b365cc824c45cccafd"})
+//find only record if have multiple match
+await User.findOne({gender:'male'})
 ```
     
 
@@ -200,10 +211,10 @@ await User.find({}, {'name': 1})
 ```
     
 
->Insert multiple records
+>Find records that match multiple keyword  from field
 ```js
 /*SQL*/
-
+select * from 
 
 /*MongoDB*/
 
