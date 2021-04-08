@@ -52,11 +52,13 @@ The following table presents the various SQL terminology and concepts and the co
 
 >Show current database
 
-    //SQL Version
-    show database()
+```sql
+/*SQL Version*/
+show database()
 
-    //MongoDB
-    db
+/*MongoDB*/
+db
+```
 
     
 
