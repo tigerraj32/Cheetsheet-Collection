@@ -50,6 +50,15 @@ The following table presents the various SQL terminology and concepts and the co
 
     use {database name}
 
+>Show current database
+
+    //SQL Version
+    show database()
+
+    //MongoDB
+    db
+
+    
 
 
 
