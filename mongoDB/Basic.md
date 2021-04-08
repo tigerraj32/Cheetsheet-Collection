@@ -19,24 +19,50 @@ The following table presents the various SQL terminology and concepts and the co
 # SQL vs MongoDB Query
 
 >List available database
-
-```sql
-/*SQL Version*/
+```js
+/*SQL*/
 show database
 
 /*MongoDB*/
 show dbs
 ```
 
+>Select database
+```js
+/*SQL*/
+use {database name}
+
+/*MongoDB*/
+use {database name}
+```
+
 
 >Show current database
-
-```sql
-/*SQL Version*/
+```js
+/*SQL*/
 show database()
 
 /*MongoDB*/
 db
+```
+
+>Drop database
+```js
+/*SQL*/
+drop {database name}
+
+/*MongoDB*/
+use {database name}
+db.dropDatabase()
+```
+
+
+>
+```js
+/*SQL*/
+
+/*MongoDB*/
+
 ```
 
     
