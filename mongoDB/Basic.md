@@ -20,12 +20,14 @@ The following table presents the various SQL terminology and concepts and the co
 
 ### List available database
 
->SQL
-
+    --SQL Version--
     show databases
->MongoDB
 
+    --MondbDB Version--
     show dbs
+
+
+
 
 
 |SQL|MongoDB|Description|
