@@ -93,7 +93,8 @@ let's assume collection name is `user`
         "sportName": "table tenis"
       }
     ],
-    "name": "rajan"
+    "name": "rajan",
+    "gender": "male"
   },
   {
     "_id": "6065898265cc824c45cccb01",
@@ -107,17 +108,37 @@ let's assume collection name is `user`
         "sportName": "cricket"
       }
     ],
-    "name": "aarav"
+    "name": "aarav",
+    "gender": "male"
   }
 ]
 ```
+
+In SQL above record is recorded as following
+
+#### Table: User
+|sn|name|gender|
+|--|----|---|
+|1 |rajan|male|
+|2 |aarab|male|
+
+<br>
+
+#### Table: Favourite
+|sn|name|user_id|
+|--|----|-------|
+|1 |football|1|
+|2 |table tennis|1|
+|3 |basket ball|2|
+|4 |cricket|2|
+<br>
 
 ### Create
 
 >Insert single record
 ```js
 /*SQL*/
-insert into user (name) values ('rajan')
+insert into user (name) values ('rajan','male')
 
 /*MongoDB*/
 db.user.insertOne({name:'rajan'})
@@ -126,40 +147,55 @@ db.user.insertOne({name:'rajan'})
 >Insert multiple records
 ```js
 /*SQL*/
-insert into user (name) values('rajan'), ('aarab')
+insert into user (name) values('rajan', 'male'), ('aarab', 'male')
 
 /*MongoDB*/
-db.user.insert([ {name: 'rajan'}, {name:'aarab'}])
+db.user.insert([ {name: 'rajan', gender:'male'}, {name:'aarab',gender:'male'}])
 
 ```
 
+### Read
+`find` method is used to query record from collection in MongoDB. Syntax for 
 
->Insert multiple records
+`find(filter, projection, option, callback )`
+
+>Find all records from table or collection
 ```js
 /*SQL*/
-
+select * from user
 
 /*MongoDB*/
+db.user.find({})
+
+/*Mongoose*/
+await User.find({})
 
 ```
 
-
->Insert multiple records
+>Find user with name `rajan`
 ```js
 /*SQL*/
-
+select * from user where name="rajan"
 
 /*MongoDB*/
+db.user.find({name:"rajan"})
+
+/*Mongoose*/
+await User.find({name:"rajan"})
 
 ```
     
 
->Insert multiple records
+>Select specific field only
 ```js
 /*SQL*/
-
+select name from user
 
 /*MongoDB*/
+db.user.find({}, {'name': 1})
+
+/*Mongoose*/
+await User.find({}, {'name': 1})
 
 ```
     
