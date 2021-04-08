@@ -16,9 +16,9 @@ The following table presents the various SQL terminology and concepts and the co
 |Union All| $unionWith|
 
 
-## SQL vs MongoDB command comparasion
+# SQL vs MongoDB Query
 
-#### List available database
+## List available database
 
 >SQL Version
 
@@ -29,7 +29,7 @@ The following table presents the various SQL terminology and concepts and the co
     show dbs
 
 
-#### Select specific database
+## Select specific database
 
 >SQL Version
 
@@ -40,7 +40,7 @@ The following table presents the various SQL terminology and concepts and the co
     use {database name}
 
 
-#### Select specific database
+## Select specific database
 
 >SQL Version
 
