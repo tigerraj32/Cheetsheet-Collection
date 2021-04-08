@@ -82,32 +82,32 @@ let's assume collection name is `user`
 ```json
 [
   {
-    _id: "606587b365cc824c45cccafd",
-    favourite: [
+    "_id": "606587b365cc824c45cccafd",
+    "favourite": [
       {
-        _id: "606587ee65cc824c45cccafe",
-        sportName: 'football'
+        "_id": "606587ee65cc824c45cccafe",
+        "sportName": "football"
       },
       {
-        _id: "6065885b65cc824c45cccaff",
-        sportName: 'table tenis'
+        "_id": "6065885b65cc824c45cccaff",
+        "sportName": "table tenis"
       }
     ],
-    name: 'rajan'
+    "name": "rajan"
   },
   {
-    _id: "6065898265cc824c45cccb01",
-    favourite: [
+    "_id": "6065898265cc824c45cccb01",
+    "favourite": [
       {
-        _id: "606589a365cc824c45cccb02",
-        sportName: 'basket ball'
+        "_id": "606589a365cc824c45cccb02",
+        "sportName": "basket ball"
       },
       {
-        _id: "606589a365cc824c45cccb03",
-        sportName: 'cricket'
+        "_id": "606589a365cc824c45cccb03",
+        "sportName": "cricket"
       }
     ],
-    name: 'aarav'
+    "name": "aarav"
   }
 ]
 ```
