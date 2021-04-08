@@ -18,7 +18,7 @@ The following table presents the various SQL terminology and concepts and the co
 
 ## SQL vs MongoDB command comparasion
 
-### List available database
+#### List available database
 
 >SQL Version
 
@@ -28,6 +28,27 @@ The following table presents the various SQL terminology and concepts and the co
 
     show dbs
 
+
+#### Select specific database
+
+>SQL Version
+
+    use {database name}
+
+>MondbDB Version
+
+    use {database name}
+
+
+#### Select specific database
+
+>SQL Version
+
+    use {database name}
+
+>MondbDB Version
+
+    use {database name}
 
 
 
