@@ -30,7 +30,7 @@ Later in the article, we'll discuss how you can change the version of TypeScript
 ### tsconfig.json
 Typically the first step in any new TypeScript project is to add a tsconfig.json file. A tsconfig.json file defines the TypeScript project settings, such as the compiler options and the files that should be included. To do this, open up the folder where you want to store your source and add a new file named tsconfig.json. Once in this file, IntelliSense (⌃Space) will help you along the way.
 
-[tsconfig.json IntelliSense](typescript-2.png)
+![tsconfig.json IntelliSense](./resources/typescript-2.png)
 
 A simple tsconfig.json looks like this for ES5, CommonJS modules and source maps:
 
@@ -64,13 +64,13 @@ To test that you have the TypeScript compiler tsc installed correctly and a work
 
 You should now see the transpiled helloworld.js JavaScript file, which you can run if you have Node.js installed, by typing node helloworld.js.
 
-[build and run Hello World](typescript-3.png)
+![build and run Hello World](./resources/typescript-3.png)
 
 **Step 2: Run the TypeScript build**
 
 Execute Run Build Task `(⇧⌘B)` from the global Terminal menu. If you created a tsconfig.json file in the earlier section, this should present the following picker:
 
-[TypeScript Build](typescript-4.png)
+![TypeScript Build](./resources/typescript-4.png)
 
 Select the `tsc: build` entry. This will produce a HelloWorld.js and HelloWorld.js.map file in the workspace.
 
@@ -117,7 +117,7 @@ This would show up in the terminal panel `(⌃)` and selecting the Tasks - build
 
 You can see the error and warning counts in the Status Bar. Click on the error and warnings icon to get a list of the problems and navigate to them.
 
-[Error in Status Bar](typescript-5.png)
+![Error in Status Bar](./resources/typescript-5.png)
 
 You can also use the keyboard to open the list ⇧⌘M.
 
@@ -150,7 +150,7 @@ When you are working with TypeScript, you often don't want to see generated Java
 
 This pattern will match on any JavaScript file `(**/*.js)` but only if a sibling TypeScript file with the same name is present. The File Explorer will no longer show derived resources for JavaScript if they are compiled to the same location.
 
-[Hiding derived resourcesHiding derived resources](typescript-6.png)
+![Hiding derived resourcesHiding derived resources](./resources/typescript-6.png)
 
 Add the files.exclude setting with a filter in the workspace settings.json file, located in the .vscode folder at the root of the workspace. You can open the workspace settings.json via the Preferences: Open Workspace Settings (JSON) command from the Command Palette (⇧⌘P).
 
