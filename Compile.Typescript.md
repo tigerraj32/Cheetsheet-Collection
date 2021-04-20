@@ -162,3 +162,81 @@ To exclude JavaScript files generated from both .ts and .tsx source files, use t
 }
 This is a bit of a trick. The search glob pattern is used as a key. The settings above use two different glob patterns to provide two unique keys but the search will still match the same files.
 
+
+## Running nodejs application in Production [pm2]
+
+`pm2` is a great tool to manage node server in production.  To install `pm2`
+
+```
+npm install pm2 -D // for development or
+npm install pm2 // globally
+```
+
+**Run node server via mp2**
+
+``` 
+pm2-dev out/app.js //or
+pm2 out/app.js
+
+```
+
+pm2 will monitor for change in file and restart server. Also if the server crash it will restart the node server
+
+**Automate build process and server restart**
+
+> Step 1: Configure script in package.json
+
+Here we create a dev script to run node server via pm2
+```
+
+"scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "pm2-dev out/app.js"
+  }
+```
+We can run the server via `node run dev`
+
+> Step 2: To add dev script to vscode task 
+
+- Go to terminal in Vscode Toolbar
+- Select configure task
+- Select dev script
+
+THis will add new item in **task.json** as following
+
+```
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "typescript",
+			"tsconfig": "tsconfig.json",
+			"problemMatcher": [
+				"$tsc"
+			],
+			"group": "build",
+			"label": "tsc: build - tsconfig.json"
+		},
+		{
+			"type": "npm",
+			"script": "dev",
+			"problemMatcher": [],
+			"label": "npm: dev",
+			"detail": "pm2-dev out/app.js",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		}
+	]
+}
+```
+
+Now if we build or run the project [SHIFT + COMMAND + B]
+
+  
+
+
+### Refrence Link
+[Compiling TypeScript](https://code.visualstudio.com/docs/typescript/typescript-compiling)
+[Video Explanation](https://www.youtube.com/watch?v=BLoFPda7fmI)
