@@ -23,7 +23,7 @@ Another option is to install the TypeScript compiler locally in your project (np
 
 It is important to keep in mind that VS Code's TypeScript language service is separate from your installed TypeScript compiler. You can see the VS Code's TypeScript version in the Status Bar when you open a TypeScript file.
 
-[TypeScript version displayed in the Status Bar](./resources/typescript-1.png)
+![TypeScript version displayed in the Status Bar](./resources/typescript-1.png)
 
 Later in the article, we'll discuss how you can change the version of TypeScript language service that VS Code uses.
 
