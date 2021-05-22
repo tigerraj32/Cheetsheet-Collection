@@ -1,7 +1,7 @@
 Before we dive into what actually is `swing trading` we need to understand what `Operator` and `Retailer` are in Stock Market. 
 
 **Operator**
-In common words the are called `big players` those who have lots of money of l`uquidity`, So that the can influence the stock  for there sake of benefit.
+In common words the are called `big players` those who have lots of money of `luquidity`, So that the can influence the stock  for there sake of benefit.
 
 **Retailer**
 Those group of people who buy or sell stock in little volume in the hope of making some profit from share market and some time can be influence.
@@ -17,6 +17,9 @@ Here the price as well volume is increasing which is the indication that operato
 hope that price will decrease by some amount and buy. But they will never get that chance before this trend stops. So this is a clear indication that it's a 
 BULLISH Trend.  And we should grab this opportunity and enter the market. 
 
+![](./resources/Radhi.EMA.Trend.png)
+
+If we look at the above chat it is clear that both price and volume is increasing from May 2 to May 6.  This is a indication that trend will be `BULLISH`  and we need to enter at this point.
 
 
 |Scenerio|Price|Volume|Operator Action|Retailer Action|Market Movement|
@@ -29,4 +32,4 @@ BULLISH Trend.  And we should grab this opportunity and enter the market.
 
 |Scenerio|Price|Volume|Operator Action|Retailer Action|Market Movement|
 |--|--|--|--|--|--|
-|Case 2| Decrease | Decrease| Already Exit| Panic Sell| Heavy Bullish |
+|Case 4| Decrease | Decrease| Already Exit| Panic Sell| Heavy Bullish |
