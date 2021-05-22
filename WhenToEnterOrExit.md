@@ -1,4 +1,4 @@
-Before we dive into what actually is `swing trading` we need to understand what `Operator` and `Retailer` are in Stock Market. 
+Before we dive into `when and how to enter and exit` we need to understand what `Operator` and `Retailer` are in Stock Market. 
 
 **Operator**
 In common words the are called `big players` those who have lots of money of `luquidity`, So that the can influence the stock  for there sake of benefit.
