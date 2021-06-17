@@ -28,7 +28,8 @@ var body: some View {
 }
 ```
 
-To gain more control over loading process we can even use loading state
+### AsyncImagePhase
+To gain more control over loading process we can even use loading phase like below
 
 ```swift
 AsyncImage(url: URL(string: "https://example.com/icon.png")) { phase in
@@ -40,6 +41,63 @@ AsyncImage(url: URL(string: "https://example.com/icon.png")) { phase in
         Color.blue // Acts as a placeholder.
     }
 }
+```
+
+or 
+
+```swift
+let url = URL(string: "https://www.bollywoodhungama.com/wp-content/uploads/2021/02/Pooja-Hegde-Wearing-Anita-Dongre.jpg")
+var body: some View {
+    AsyncImage(url: url) { phase in
+        switch phase {
+        case .success(let image) :
+            image
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            
+        case .failure(let error):
+            Text(error.localizedDescription)
+            
+        case .empty:
+            ProgressView()
+                .progressViewStyle(.circular)
+        @unknown default:
+            EmptyView()
+        }
+    }
+    
+}
+```
+
+To add smooth transaction when the phase change we can add transaction to `AsyncImage`
+
+```swift
+let url = URL(string: "https://www.bollywoodhungama.com/wp-content/uploads/2021/02/Pooja-Hegde-Wearing-Anita-Dongre.jpg")
+var body: some View {
+    
+    AsyncImage(url: url,
+               transaction: Transaction(animation: .easeInOut(duration: 2.5))) { phase in
+        switch phase {
+        case .success(let image) :
+            image
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            
+        case .failure(let error):
+            Text(error.localizedDescription)
+            
+        case .empty:
+            ProgressView()
+                .progressViewStyle(.circular)
+        @unknown default:
+            EmptyView()
+        }
+        
+    }
+}
+
 ```
 
 ## List
