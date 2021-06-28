@@ -121,6 +121,7 @@ openssl s_client -connect github.com:443 </dev/null  | openssl x509 -outform DER
 
 ### For iOS
 
+First, add your certificate into your ios project.  Now let's create a swift class `NetworkManager`
 
 Refrences
 - https://www.raywenderlich.com/1484288-preventing-man-in-the-middle-attacks-in-ios-with-ssl-pinning
