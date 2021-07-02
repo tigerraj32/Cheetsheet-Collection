@@ -62,3 +62,30 @@ asyncMethod(param: 1) { (result) in
 ```
 
 
+Now this approach is cool but this function is single purpose. It only support `Model` Type.  We can now use `Generics` to support all types of model as long as they support `Coadable` protocol.
+
+
+```swift
+
+
+func asyncMethod<T: Coadable>(param: Int, completion:@escaping  (Result<T, CustomError>)->Void){
+    if param == 1{
+        let model = T(name: "rajan")
+        completion(.success(model))
+    }else {
+        completion(.failure(.error1))
+    }
+}
+
+asyncMethod(param: 1) { (result: Result<Model, CustomError>) in
+    switch result {
+    case .success(let model):
+        print(model) //Model(id: 29ECCF11-4D97-4F47-86F2-505A3AC56838, name: "rajan")
+
+    case .failure(let error):
+        print(error.rawValue) //error case 1
+    }
+}
+
+```
+
