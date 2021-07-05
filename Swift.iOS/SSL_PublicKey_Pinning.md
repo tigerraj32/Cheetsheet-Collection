@@ -121,7 +121,11 @@ openssl s_client -connect github.com:443 </dev/null  | openssl x509 -outform DER
 
 ### For iOS
 
-First, add your certificate into your ios project.  Now let's create a swift class `NetworkManager`
+First, add your certificate into your ios project.  
+
+For this example I am going to make a call to `github api` to list the my repository. Here github uses SSL and now I want to pin github's ssl certificate when making https request. To get the certificate follow the above steps. Before we dive into coding,  let's first create github personal token to pass aithorization when making api calls. [Get Personal Token](https://github.com/tigerraj32/Cheetsheet-Collection/blob/master/git/git-token.md)
+
+Now let's create a swift class `NetworkManager`
 
 Refrences
 - https://www.raywenderlich.com/1484288-preventing-man-in-the-middle-attacks-in-ios-with-ssl-pinning

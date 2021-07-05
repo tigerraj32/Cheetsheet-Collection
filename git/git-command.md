@@ -93,5 +93,13 @@ Or save to new file
 - git push 
         
         
-         
+## Fecch remote branch
+
+- `git fetch origin`
+
+Some time above command will not work to fetch all the remote branch to local.  In that case use following commands to solve the problem
+
+                git remote rm origin
+                git remote add origin <git url>
+
          
