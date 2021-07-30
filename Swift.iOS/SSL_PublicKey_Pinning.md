@@ -308,4 +308,5 @@ For now the public key we got from  swift code and terminal are different. I nee
 
 
 Refrences
+- Sample Project can be downloaded [here](https://github.com/DemoSamples/SSLPinning)
 - https://www.raywenderlich.com/1484288-preventing-man-in-the-middle-attacks-in-ios-with-ssl-pinning
