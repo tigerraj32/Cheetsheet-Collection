@@ -203,6 +203,6 @@ Now let's apply `.matchedGeometryEffect` modifier to `Text` and `Shape` rather t
     }
 
 ```
-<img src="./../resources/match-geometry-effect.5.gif" alt="drawing" width="200"/>
+<img src="./../resources/match-geometry-effect.6.gif" alt="drawing" width="200"/>
 
 <br><br>
