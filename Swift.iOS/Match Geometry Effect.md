@@ -259,6 +259,8 @@ Now let's apply `.matchedGeometryEffect` modifier to `Text` and `Shape` rather t
 
 ## Example 4 : Placeholder Transaction in Login Input Field
 
+Credit: [Kevsoft](https://www.youtube.com/watch?v=KPYN6sjWvlA&t=313s) + my input :)
+
 ![](./../resources/match-geometry-effect.7.gif)
 
 
@@ -383,4 +385,10 @@ The above formula is made using `k-map` with two variable. 'k-map` make it reall
 This gives the formula 
 > C = A + B //+ = Or Operator
 
+You can generate the formula from
+ - [K-MAP](https://www.charlie-coleman.com/experiments/kmap/)
+ - [32*8](http://www.32x8.com/index.html)
+ - Or Manually using K-Map logic
+
 We want to animate the input to new view layout when either `editingMode` or `value != ""` or both is true else we have a normal view
+
