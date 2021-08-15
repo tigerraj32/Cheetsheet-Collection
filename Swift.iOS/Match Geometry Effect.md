@@ -1,9 +1,9 @@
 # Match Geometry Effect
 
-From **iOS 14** apple include new modifier `matchedGeometryEffect`. This modifier helps developer to create some amazing view animation with few lines of code. All we need to do is describe the appeareance of two views  and use `.matchGeometryEffect` modifier to tell these two view are same. The modifier will then compute the difference betweem those two views and automativally animates the size or position changes. 
+From **iOS 14** apple include new modifier `matchedGeometryEffect`. This modifier helps developers to create some amazing view animation with few lines of code. All we need to do is describe the appearance of two views and use `.matchGeometryEffect` modifier to tell these two view are the same. The modifier will then compute the difference between those two views and automatically animates the size or position changes. 
 
 ### Namespace
-We require `@Namespace` to tell swiftui that two view are same that need to considered during view transaction.
+We require `@Namespace` to tell swift that two views are the same that need to be considered during the view transaction.
 
 ## Example 1
 
@@ -11,7 +11,7 @@ We require `@Namespace` to tell swiftui that two view are same that need to cons
 
 **Without Match Geomerty Effect**
 
-In the below code we `toggle` state variable to change the position and shape of object by using `.cornerRadius` and `.offset` modifier. 
+In the below code we `toggle` state variable to change the position and shape of an object by using `.cornerRadius` and `.offset` modifier. 
 
 ```swift
 
@@ -39,7 +39,7 @@ In the below code we `toggle` state variable to change the position and shape of
 
 <br>
 
-**With Match Geomerty Effect**
+**With Match Geometry Effect**
 
 With the `matchedGeometryEffect` modifier, you no longer need to figure out these differences. All you need to do is describe two views: 
 - one represents the start state and 
@@ -87,7 +87,7 @@ With the `matchedGeometryEffect` modifier, you no longer need to figure out thes
 
 - Note 1
 
-In the above code if you comment out `.matchedGeometryEffect` you would get following result.
+In the above code if you comment out `.matchedGeometryEffect` you would get the following result.
 
 > .matchedGeometryEffect(id: "animation", in: animation)
 
@@ -95,7 +95,7 @@ In the above code if you comment out `.matchedGeometryEffect` you would get foll
 
 - Note 2
 
-We al need to ay attention on where to put the  `.matchedGeometryEffect` modifier. If you would have used  `.matchedGeometryEffect` modifier after size of position setup. View transaction won't work properly as we expect.
+We need to pay attention to where to put the  `.matchedGeometryEffect` modifier. If you would have used  `.matchedGeometryEffect` modifier after the size of position setup. View transaction won't work properly as we expect.
 
 ```swift
     .frame(width:  100, height: 100)
@@ -106,16 +106,16 @@ We al need to ay attention on where to put the  `.matchedGeometryEffect` modifie
 ![](./../resources/match-geometry-effect.3.gif)
 
 
-- Note 3 : Element vs Container
+- Note 3: Element vs Container
 
-It is not recommended to use Matched Geometry Effect on containers like VStack, HStack and ZStack. Instead, you should use it on elements like shapes, texts and buttons. We will see the sample code in Example 2 below
+It is not recommended to use Matched Geometry Effect on containers like VStack, HStack, and ZStack. Instead, you should use it on elements like shapes, texts, and buttons. We will see the sample code in Example 2 below
 
 
 ## Example 2
 
 **Element vs Container**
 
-Let's first try add `.matchedGeometryEffect` modifier in container itself and see the result.  In below code we applied the `.matchedGeometryEffect` modifier to `VStack`. The final output kind of produce animation but not as we want.
+Let's first try to add `.matchedGeometryEffect` modifier in container itself and see the result.  In the below code we applied the `.matchedGeometryEffect` modifier to `VStack`. The final output kind of produces animation but not as we want.
 
 ```swift
 @State var toggle: Bool = false
@@ -159,7 +159,7 @@ Let's first try add `.matchedGeometryEffect` modifier in container itself and se
 <img src="./../resources/match-geometry-effect.4.gif" alt="drawing" width="200"/>
 
 <br><br>
-Now let's apply `.matchedGeometryEffect` modifier to `Text` and `Shape` rather that to `VStack`.  The outpu produce smooth transaction for both background and text.
+Now let's apply `.matchedGeometryEffect` modifier to `Text` and `Shape` rather than to `VStack` .  The output produces smooth transactions for both background and text.
 
 ```swift
 
@@ -257,21 +257,21 @@ Now let's apply `.matchedGeometryEffect` modifier to `Text` and `Shape` rather t
 
 # Practical Implementation Of Match Geometry Effect
 
-## Example 4 : Placeholder Transaction in Login Input Field
+## Example 4: Placeholder Transaction in Login Input Field
 
 Credit: [Kevsoft](https://www.youtube.com/watch?v=KPYN6sjWvlA&t=313s) + my input :)
 
 ![](./../resources/match-geometry-effect.7.gif)
 
 
-Let's try to create input item that can be used in login or registration or any other form. Here we want to animate the `TextField` placeholder transaction from bottom to top when we start editing and revert back if end editing. 
+Let's try to create input items that can be used in login or registration or any other form. Here we want to animate the `TextField` placeholder transaction from bottom to top when we start editing and revert if end editing. 
 
-Some of other animation handling with match geometry effect
+Some of the other animation handlings with match geometry effect
 
-- Placeholder of `TextField` transactoin from bottom to up
+- Placeholder of `TextField` transaction from bottom to up
 - `TextField` selection highlight
 
-In this eample we create `ZStack` where we place `Text` (this act as placeholder for TextField) and `TextField` with no placeholder value.  So this `Text` and `TextField` on top of each other.  Because of no placeholder text in `TextField` we see `Text` behind the `TextField`. When we select the `TextField` for editing  we remove the background `Text` and add it to VStack above `TextField`
+In this example, we create `ZStack` where we place `Text` (this acts as a placeholder for TextField) and `TextField` with no placeholder value.  So this `Text` and `TextField` are on top of each other.  Because of no placeholder text in `TextField` we see `Text` behind the `TextField`. When we select the `TextField` for editing  we remove the background `Text` and add it to VStack above `TextField`
 
 ```swift
 struct LoginInputView: View {
@@ -362,18 +362,18 @@ To use LoginInputView
     }
 ```
 
-One thing to notice here in LoginInputView is, we have a computed property `flag` that actually plays the logic behind controlling the animation. 
+One thing to notice here in LoginInputView is, we have a computed property `flag` that plays the logic behind controlling the animation. 
 
 >  var flag:Bool {
         return editingMode || (value != "")
     }
 
-Further more it depends on two other `State` properties.
+Furthermore, it depends on two other `State` properties.
 
 - editingMode (let say A)
 - (value != "") (checking for some text in value)
 
-The above formula is made using `k-map` with two variable. 'k-map` make it really easy to handle multiple use case scenerio when there is two or mote than two variable.
+The above formula is made using `k-map` with two variable. 'k-map` make it easy to handle multiple use case scenario when there is two or more than two variable.
 
 |Variable A (EditinMode)|Variable B (value != "")|Expected Output C (animation)|
 |--|--|--|
@@ -390,5 +390,5 @@ You can generate the formula from
  - [32*8](http://www.32x8.com/index.html)
  - Or Manually using K-Map logic
 
-We want to animate the input to new view layout when either `editingMode` or `value != ""` or both is true else we have a normal view
+We want to animate the input to a new view layout when either `editingMode` or `value != ""` or both is true else we have a normal view
 
