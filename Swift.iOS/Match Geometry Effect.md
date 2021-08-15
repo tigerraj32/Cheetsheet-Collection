@@ -5,7 +5,7 @@ From **iOS 14** apple include new modifier `matchedGeometryEffect`. This modifie
 ### Namespace
 We require `@Namespace` to tell swiftui that two view are same that need to considered during view transaction.
 
-# Example 1
+## Example 1
 
 ### Shape Morphing
 
@@ -111,7 +111,7 @@ We al need to ay attention on where to put the  `.matchedGeometryEffect` modifie
 It is not recommended to use Matched Geometry Effect on containers like VStack, HStack and ZStack. Instead, you should use it on elements like shapes, texts and buttons. We will see the sample code in Example 2 below
 
 
-# Example 2
+## Example 2
 
 **Element vs Container**
 
@@ -206,3 +206,181 @@ Now let's apply `.matchedGeometryEffect` modifier to `Text` and `Shape` rather t
 <img src="./../resources/match-geometry-effect.6.gif" alt="drawing" width="200"/>
 
 <br><br>
+
+
+## Example 3: Some Fun with Geometry Effect
+
+```swift
+ @State var toggle: Bool = false
+    @Namespace var animation
+    
+    var body: some View {
+        VStack{
+            if toggle {
+                HStack{
+                    Circle()
+                        .fill(Color.pink)
+                        .matchedGeometryEffect(id: "circle1", in: animation)
+                        .frame(width: 30, height: 30)
+                    Spacer()
+                    Circle()
+                        .fill(Color.blue)
+                        .matchedGeometryEffect(id: "circle2", in: animation)
+                        .frame(width: 30, height: 30)
+                }
+                    
+            }else {
+                HStack{
+                    Circle()
+                        .fill(Color.orange)
+                        .matchedGeometryEffect(id: "circle2", in: animation)
+                        .frame(width: 30, height: 30)
+                    Spacer()
+                    Circle()
+                        .fill(Color.green)
+                        .matchedGeometryEffect(id: "circle1", in: animation)
+                        .frame(width: 30, height: 30)
+                }
+            }
+        }
+        .frame(width: 100)
+        .animation(.linear)
+        .onTapGesture {
+            self.toggle.toggle()
+        }
+    }
+```
+
+![](./../resources/match-geometry-effect.5.gif)
+
+
+
+# Practical Implementation Of Match Geometry Effect
+
+## Example 4 : Placeholder Transaction in Login Input Field
+
+![](./../resources/match-geometry-effect.7.gif)
+
+
+Let's try to create input item that can be used in login or registration or any other form. Here we want to animate the `TextField` placeholder transaction from bottom to top when we start editing and revert back if end editing. 
+
+Some of other animation handling with match geometry effect
+
+- Placeholder of `TextField` transactoin from bottom to up
+- `TextField` selection highlight
+
+In this eample we create `ZStack` where we place `Text` (this act as placeholder for TextField) and `TextField` with no placeholder value.  So this `Text` and `TextField` on top of each other.  Because of no placeholder text in `TextField` we see `Text` behind the `TextField`. When we select the `TextField` for editing  we remove the background `Text` and add it to VStack above `TextField`
+
+```swift
+struct LoginInputView: View {
+    
+    var image: String
+    var title: String
+    @Binding var value: String
+    @State var editingMode: Bool = false
+    
+    var animation: Namespace.ID
+    var flag:Bool {
+        return editingMode || (value != "")
+    }
+    
+    var body: some View{
+        VStack{
+            HStack(alignment: .bottom){
+                Image(systemName: image)
+                    .font(.system(size: 22))
+                    .foregroundColor(.primary)
+                    .frame(width: 35)
+                
+                VStack(alignment: .leading, spacing: 6){
+                    //value != ""
+                    if flag {
+                      
+                        Text(title)
+                            .font(.caption)
+                            .fontWeight(.heavy)
+                            .foregroundColor(.gray)
+                            .matchedGeometryEffect(id: title, in: animation)
+                    }
+                    
+                    
+                    ZStack(alignment:.leading){
+                        //value == ""
+                        if !flag{
+                           
+                            Text(title)
+                                .font(.caption)
+                                .fontWeight(.heavy)
+                                .foregroundColor(.gray)
+                                .matchedGeometryEffect(id: title, in: animation)
+                        }
+                        
+                        if title == "PASSWORD"{
+                            
+                            SecureField("", text: $value)
+                                .keyboardType(.default)
+                        }else{
+                            TextField("", text: $value, onEditingChanged: { flag in
+                                editingMode = flag
+                            })
+                        }
+                        
+                    }
+                }
+            }
+            if !editingMode {
+                Divider()
+            }
+            
+            
+        }
+        .padding(.horizontal)
+        .padding(.vertical, 10)
+        .background(Color.white.opacity(editingMode ? 1: 0))
+        .cornerRadius(10)
+        .shadow(color: Color.black.opacity(0.1), radius: 5, x: 5, y: 5)
+        .shadow(color: Color.black.opacity(0.05), radius: 5, x: -5, y: -5)
+        .padding(.horizontal)
+        .padding(.top)
+        .animation(.linear)
+    }
+}
+
+```
+
+To use LoginInputView
+
+```swift
+@State var email: String = ""
+    @State var password: String = ""
+    @Namespace var animation
+
+    var body: some View {
+          LoginInputView(image: "envelope", title: "EMAIL", value: $email, animation: animation)
+    }
+```
+
+One thing to notice here in LoginInputView is, we have a computed property `flag` that actually plays the logic behind controlling the animation. 
+
+>  var flag:Bool {
+        return editingMode || (value != "")
+    }
+
+Further more it depends on two other `State` properties.
+
+- editingMode (let say A)
+- (value != "") (checking for some text in value)
+
+The above formula is made using `k-map` with two variable. 'k-map` make it really easy to handle multiple use case scenerio when there is two or mote than two variable.
+
+|Variable A (EditinMode)|Variable B (value != "")|Expected Output C (animation)|
+|--|--|--|
+|false|false| false |
+|false|true| true |
+|true|false| true |
+|true|fatruelse| true |
+
+This gives the formula 
+> C = A + B //+ = Or Operator
+
+We want to animate the input to new view layout when either `editingMode` or `value != ""` or both is true else we have a normal view
