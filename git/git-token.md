@@ -42,3 +42,8 @@ protocol=https
 
 That's it.
 
+
+## For Ubuntu
+- git config --unset credential.helper
+- delete .git_credentials
+
