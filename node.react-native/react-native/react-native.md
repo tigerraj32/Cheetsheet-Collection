@@ -1,6 +1,27 @@
 # React Native Cheetsheet
 
 
+## Installing React Native
+
+### Install Homebrew
+
+> /usr/bin/ruby -e “$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+### Install node.js
+
+> brew install node
+
+### Install watchman
+
+> brew install watchman
+
+### Install React Native CLI
+
+> npm install -g react-native-cli
+
+
+
+
 ## Project Setup
 
 
