@@ -19,7 +19,13 @@ A[App] ----> F[Proxy Server] ----> B[Computer Network connection] ----> C[Router
 
 # Installation
 
-Charles Proxy for mac can be downloaded from https://www.charlesproxy.com/download/.  First install and open the charles proxy. On the first lunch, It should ask for permission to automatically configure your network settings. If it doesn’t, press **Command-Shift-P** to manually have Charles ask for this permission.
+Charles Proxy for mac can be downloaded from https://www.charlesproxy.com/download/.  Or you can download using brew
+
+> brew search charles
+
+> brew install --cask charles
+
+First install and open the charles proxy. On the first lunch, It should ask for permission to automatically configure your network settings. If it doesn’t, press **Command-Shift-P** to manually have Charles ask for this permission.
 
 
 ![](./resources/charles.1.png)
