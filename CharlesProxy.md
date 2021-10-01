@@ -135,14 +135,15 @@ First go to `Charles` -> `Help` -> `SSL Proxying` -> `Install Charles Root Certi
      Now when you start the iOS Simulator, you should be able to access SSL websites with Charles using SSL Proxying.
     
 
-- **For Android Device**
+- **For Android Device / Emulator **
     - Open `Chrome Browser` and goto `https://chlr.pro/ssl`.
     - This will download the Charles CA certificate into download folder. 
 
     - On newer versions of Android, you may get an error on downloading, such as "download unsuccessful". If this happens, use the following instructions:
-        - Go to `Help` > `SSL Proxying` > `Save Charles Root Certificate`.
+        - Go to `Help` > `SSL Proxying` > `Save Charles Root Certificate` choose .cer type.
 
         - Transfer the `certificate` file to your device using an SD Card, USB Cable, or remote transfer such as Google Drive.
+        - adb push [path to cer] [path in addroid device]. eg. adb push CAroot.cer /sdcard/Download
         - Now in your android device open `Setting` > `Security` > `Advance` > `Encryption & Credentials` > `Install a Certificate` > `VPN & Apps`.
         - Name the certificate and okay it as a trusted certificate.
         - Once the certificate is installed, you are prompted to set up a PIN.
