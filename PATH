@@ -1,0 +1,27 @@
+# PATH
+
+Path in linux based system is a way to set enviromental variables. 
+
+PATH is constructed first from `/etc/paths`, then from the files in `/etc/paths.d`, and then from `.bash_profile`. 
+
+
+### 'etc/path`
+
+- Run following command and add your path
+> sudo nano /etc/path
+
+- Save and close terminal to reconstruct your PATH.
+
+- Open terminal and run command
+> echo $PATH
+
+this should gives
+
+```
+/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/share/npm/bin
+
+```
+
+
+
+
