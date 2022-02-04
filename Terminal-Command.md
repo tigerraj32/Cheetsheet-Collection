@@ -16,3 +16,22 @@ If you have no audio at all, you might need to manually restart Core Audio with 
 ## Hide Show Hidden files in Mac
 
 > Command + Shift + Period to instantly toggle to show hidden files
+
+
+## Check Process Running On Specific Port
+
+`lsof` command (List Open Files) is used to list all open files on a Linux system To find the process/service listening on a particular port, type (specify the port).
+
+```bash 
+$ lsof -i :80
+
+//output
+COMMAND   PID USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
+node    19440 user   32u  IPv6 0x2a96b6da87ea8e57      0t0  TCP *:irdmi (LISTEN)
+```
+To kill the process 
+> kill 19440
+
+
+
+
