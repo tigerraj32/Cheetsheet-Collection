@@ -91,12 +91,13 @@ import React, { useState } from "react";
 import { View, Text } from "react-native";
 
 export default function Counter() {
-  const [name, setName] = useState({ firstname: "", lastname: "" });
-
+  const [state, setState] = useState({ firstname: "", lastname: "" });
+  const firstname = state.firstname
+  const lastname = state.lastname
   return (
     <View>
       <Text>
-        Your name is {name.firstname} - {name.lastname}{" "}
+        Your name is {firstname} - {lastname}{" "}
       </Text>
       <form>
         <input
