@@ -2,7 +2,7 @@
 The wrappers that begin with "@" in SwiftUI are called property wrappers. Property wrappers are a language feature introduced in Swift that allow you to define custom behavior for properties, such as adding validation, transformation, or observation logic, by encapsulating it within a separate type. SwiftUI makes extensive use of property wrappers to provide powerful and convenient ways to manage data and behavior in views. Here is a list of some common property wrappers available in Swift:
 
 
--` @State`: Used to declare a mutable state property in a view. This property wrapper allows the view to store and manage mutable data that can change over time, and automatically updates the view when the data changes.
+- `@State`: Used to declare a mutable state property in a view. This property wrapper allows the view to store and manage mutable data that can change over time, and automatically updates the view when the data changes.
 
 - `@Binding`: Used to create a two-way connection between a view and its underlying data. This property wrapper allows a view to read and modify the value of a piece of data, and automatically updates the view and the data when changes occur.
 
