@@ -75,4 +75,57 @@ To download both audio and video  and merge them to produce desired output will 
 - Vlc will now start playig the video 
 - Then window > Media Information
 - At the bottom of there is `loacation` that include video url that can be downloaded
+- 
+
+# yt-dlp Usage Guide
+
+yt-dlp is a command-line program to download videos from YouTube and other similar sites.
+
+## Installation
+
+Ensure you have Homebrew installed on your Mac.
+
+```bash
+
+brew install yt-dlp
+Basic Usage
+```
+
+Download a Single Video
+```bash
+
+yt-dlp <video_url>
+Replace <video_url> with the URL of the video you want to download.
+```
+
+Download an Entire Playlist
+```bash
+
+yt-dlp <playlist_url>
+Replace <playlist_url> with the URL of the playlist you want to download.
+```
+
+Additional Options
+
+Download video in best quality:
+
+```bash
+
+yt-dlp -f best <video_url>
+```
+
+Download only the audio:
+
+```bash
+
+yt-dlp -x --audio-format mp3 <video_url>
+```
+
+Specify output filename:
+
+```bash
+
+yt-dlp -o '~/Downloads/%(title)s.%(ext)s' <video_url>
+```
+
 
